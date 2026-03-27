@@ -12,7 +12,6 @@
     .then(function (r) { return r.json(); })
     .then(function (data) {
       if (!data.data || !data.data.length) return;
-
       var best = null;
       data.data.forEach(function (author) {
         var name = (author.name || '').toLowerCase();
@@ -22,7 +21,6 @@
         }
       });
       if (!best || !best.citationCount) return;
-
       var citEl = document.querySelector('.metric-number[data-count]');
       if (citEl) {
         citEl.setAttribute('data-count', best.citationCount);
@@ -36,6 +34,148 @@
       }
     })
     .catch(function () { /* keep static fallback */ });
+})();
+
+// ---------- Medium RSS Feed (via rss2json.com) ----------
+(function initMediumFeed() {
+  var container = document.getElementById('mediumFeed');
+  if (!container) return;
+
+  var RSS = 'https://medium.com/feed/@getnetdemil';
+  var API = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(RSS) + '&count=10';
+
+  function stripTags(str) { return (str || '').replace(/<[^>]+>/g, ''); }
+
+  function truncate(str, max) {
+    var plain = stripTags(str);
+    return plain.length > max ? plain.slice(0, max).trimEnd() + '\u2026' : plain;
+  }
+
+  function formatDate(dateStr) {
+    var d = new Date(dateStr);
+    if (isNaN(d)) return '';
+    return d.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
+  }
+
+  function readTime(content) {
+    var words = stripTags(content || '').split(/\s+/).filter(Boolean).length;
+    return Math.max(1, Math.round(words / 200)) + ' min read';
+  }
+
+  function render(posts) {
+    var badge = document.getElementById('mediumBadge');
+    if (badge) badge.textContent = posts.length;
+
+    var html = posts.map(function (p) {
+      return '<article class="medium-card fade-in">' +
+        '<div class="medium-card-meta">' +
+          '<time class="medium-date">' + formatDate(p.pubDate) + '</time>' +
+          '<span class="medium-read">' + readTime(p.content || p.description) + '</span>' +
+        '</div>' +
+        '<h3 class="medium-title">' +
+          '<a href="' + p.link + '" target="_blank" rel="noopener noreferrer">' +
+          (p.title || 'Untitled') + '</a>' +
+        '</h3>' +
+        '<p class="medium-excerpt">' + truncate(p.description, 140) + '</p>' +
+        '<a class="medium-read-link" href="' + p.link + '" target="_blank" rel="noopener noreferrer">' +
+          'Read on Medium \u2192' +
+        '</a>' +
+      '</article>';
+    }).join('');
+
+    // LinkedIn CTA card
+    html += '<div class="medium-card medium-card--linkedin fade-in">' +
+      '<div class="medium-card-meta"><span class="medium-read">Professional updates</span></div>' +
+      '<h3 class="medium-title">Follow on LinkedIn</h3>' +
+      '<p class="medium-excerpt">Research updates, conference posts, and collaboration opportunities.</p>' +
+      '<a class="medium-read-link" href="https://www.linkedin.com/in/getnetdemil/" target="_blank" rel="noopener noreferrer">' +
+        'View LinkedIn Profile \u2192' +
+      '</a>' +
+    '</div>';
+
+    container.innerHTML = html;
+
+    // Trigger fade-in for newly rendered cards
+    container.querySelectorAll('.fade-in').forEach(function (el) {
+      fadeObserverInstance && fadeObserverInstance.observe(el);
+    });
+  }
+
+  fetch(API)
+    .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function (data) {
+      if (data.status === 'ok' && data.items && data.items.length) {
+        render(data.items);
+      } else {
+        throw new Error('No items');
+      }
+    })
+    .catch(function () {
+      container.innerHTML =
+        '<p class="medium-empty">Could not load posts. ' +
+        '<a href="https://medium.com/@getnetdemil" target="_blank" rel="noopener noreferrer">' +
+        'Read on Medium \u2192</a></p>';
+    });
+})();
+
+// ---------- News Tabs ----------
+(function initNewsTabs() {
+  var tabs   = document.querySelectorAll('.news-tab');
+  var panels = document.querySelectorAll('[role="tabpanel"]');
+  if (!tabs.length) return;
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var target = tab.getAttribute('data-tab');
+      tabs.forEach(function (t) {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      panels.forEach(function (panel) {
+        panel.hidden = (panel.id !== 'tab-' + target);
+      });
+    });
+  });
+})();
+
+// ---------- See More / Collapse (universal) ----------
+(function initSeeMore() {
+  document.querySelectorAll('[data-see-more]').forEach(function (container) {
+    var max    = parseInt(container.getAttribute('data-see-more'), 10);
+    var items  = Array.from(container.children);
+    var wrap   = container.nextElementSibling;
+    var btn    = wrap && wrap.classList.contains('see-more-wrap')
+                   ? wrap.querySelector('.see-more-btn') : null;
+    var icon   = btn && btn.querySelector('.see-more-icon');
+    var hidden = items.slice(max);
+
+    if (!btn || !hidden.length) {
+      if (wrap && wrap.classList.contains('see-more-wrap')) wrap.hidden = true;
+      return;
+    }
+
+    hidden.forEach(function (el) { el.hidden = true; });
+
+    btn.addEventListener('click', function () {
+      var isOpen = btn.getAttribute('aria-expanded') === 'true';
+      hidden.forEach(function (el) { el.hidden = isOpen; });
+      btn.setAttribute('aria-expanded', String(!isOpen));
+
+      // Swap label text
+      var labelMore = btn.getAttribute('data-label-more') || 'Show more';
+      var labelLess = btn.getAttribute('data-label-less') || 'Show less';
+      // Update only the text node (first child)
+      var textNode = Array.from(btn.childNodes).find(function (n) { return n.nodeType === 3; });
+      if (textNode) textNode.textContent = isOpen ? labelMore + ' ' : labelLess + ' ';
+
+      if (icon) icon.style.transform = isOpen ? '' : 'rotate(180deg)';
+      if (!isOpen && hidden[0]) {
+        hidden[0].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  });
 })();
 
 // ---------- Theme Toggle ----------
@@ -86,7 +226,6 @@ if (navToggle && navLinks) {
     var isOpen = navLinks.classList.toggle('open');
     navToggle.setAttribute('aria-expanded', String(isOpen));
   });
-
   navLinks.querySelectorAll('a').forEach(function (link) {
     link.addEventListener('click', function () {
       navLinks.classList.remove('open');
@@ -102,15 +241,10 @@ var navItems = document.querySelectorAll('.nav-links a');
 function updateActiveNavLink() {
   var scrollPos = window.scrollY + 120;
   sections.forEach(function (section) {
-    if (
-      scrollPos >= section.offsetTop &&
-      scrollPos < section.offsetTop + section.offsetHeight
-    ) {
+    if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
       navItems.forEach(function (a) {
         a.classList.remove('active');
-        if (a.getAttribute('href') === '#' + section.id) {
-          a.classList.add('active');
-        }
+        if (a.getAttribute('href') === '#' + section.id) a.classList.add('active');
       });
     }
   });
@@ -122,7 +256,6 @@ function animateCounter(el) {
   var target   = parseInt(el.getAttribute('data-count'), 10);
   var duration = 1400;
   var start    = null;
-
   function step(ts) {
     if (!start) start = ts;
     var progress = Math.min((ts - start) / duration, 1);
@@ -135,7 +268,6 @@ function animateCounter(el) {
 
 var counterEls   = document.querySelectorAll('.metric-number[data-count]');
 var countersSeen = false;
-
 var counterObserver = new IntersectionObserver(function (entries) {
   entries.forEach(function (entry) {
     if (entry.isIntersecting && !countersSeen) {
@@ -145,30 +277,44 @@ var counterObserver = new IntersectionObserver(function (entries) {
     }
   });
 }, { threshold: 0.3 });
-
 if (counterEls.length > 0) {
   counterObserver.observe(counterEls[0].closest('.about-metrics') || counterEls[0]);
 }
 
+// ---------- Timeline item scroll animations ----------
+var tlObserver = new IntersectionObserver(function (entries) {
+  entries.forEach(function (entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('tl-item--visible');
+      tlObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+// Observe all timeline items and set stagger delays
+document.querySelectorAll('.tl-item').forEach(function (el, i) {
+  el.style.setProperty('--delay', (i % 5) * 80 + 'ms');
+  tlObserver.observe(el);
+});
+
 // ---------- Fade-in on scroll ----------
 var fadeEls = document.querySelectorAll(
   '.highlight-card, .interest-card, .publication-card, .contact-card, ' +
-  '.project-card, .project-card-full, .news-card, .timeline-item, ' +
-  '.service-block, .skill-item'
+  '.project-card, .project-card-full, .news-card, .service-block, .skill-item'
 );
 
-var fadeObserver = new IntersectionObserver(function (entries) {
+var fadeObserverInstance = new IntersectionObserver(function (entries) {
   entries.forEach(function (entry) {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
-      fadeObserver.unobserve(entry.target);
+      fadeObserverInstance.unobserve(entry.target);
     }
   });
 }, { threshold: 0.08 });
 
 fadeEls.forEach(function (el) {
   el.classList.add('fade-in');
-  fadeObserver.observe(el);
+  fadeObserverInstance.observe(el);
 });
 
 // ---------- Publication search ----------
@@ -181,36 +327,24 @@ var activeFilter  = 'all';
 function filterPublications() {
   var query   = pubSearch ? pubSearch.value.toLowerCase().trim() : '';
   var visible = 0;
-
   pubCards.forEach(function (card) {
     var type     = (card.getAttribute('data-type') || '').toLowerCase();
     var text     = card.textContent.toLowerCase();
     var matchesQ = !query || text.indexOf(query) !== -1;
     var matchesF = activeFilter === 'all' || type === activeFilter;
-
-    if (matchesQ && matchesF) {
-      card.style.display = '';
-      visible++;
-    } else {
-      card.style.display = 'none';
-    }
+    if (matchesQ && matchesF) { card.style.display = ''; visible++; }
+    else { card.style.display = 'none'; }
   });
-
   pubYearGroups.forEach(function (group) {
-    var cards      = group.querySelectorAll('.publication-card');
-    var anyVisible = false;
-    cards.forEach(function (c) { if (c.style.display !== 'none') anyVisible = true; });
-    group.style.display = anyVisible ? '' : 'none';
+    var cards = group.querySelectorAll('.publication-card');
+    var any   = false;
+    cards.forEach(function (c) { if (c.style.display !== 'none') any = true; });
+    group.style.display = any ? '' : 'none';
   });
-
-  if (pubNoResults) {
-    pubNoResults.classList.toggle('visible', visible === 0);
-  }
+  if (pubNoResults) pubNoResults.classList.toggle('visible', visible === 0);
 }
 
-if (pubSearch) {
-  pubSearch.addEventListener('input', filterPublications);
-}
+if (pubSearch) pubSearch.addEventListener('input', filterPublications);
 
 var filterBtns = document.querySelectorAll('.filter-btn');
 filterBtns.forEach(function (btn) {
@@ -222,11 +356,19 @@ filterBtns.forEach(function (btn) {
   });
 });
 
+// ---------- FlowCV iframe error handling ----------
+(function () {
+  var iframe = document.querySelector('.flowcv-iframe');
+  if (!iframe) return;
+  iframe.addEventListener('error', function () {
+    var wrap = iframe.closest('.flowcv-wrap');
+    if (wrap) wrap.classList.add('flowcv-wrap--error');
+  });
+})();
+
 // ---------- Footer year ----------
 var yearEl = document.getElementById('year');
-if (yearEl) {
-  yearEl.textContent = new Date().getFullYear();
-}
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // ---------- Nav brand: scroll to top, no hash in URL ----------
 var navBrand = document.querySelector('.nav-brand');
