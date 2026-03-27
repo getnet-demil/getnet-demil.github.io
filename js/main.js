@@ -118,28 +118,6 @@
     });
 })();
 
-// ---------- News Tabs ----------
-(function initNewsTabs() {
-  var tabs   = document.querySelectorAll('.news-tab');
-  var panels = document.querySelectorAll('[role="tabpanel"]');
-  if (!tabs.length) return;
-
-  tabs.forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      var target = tab.getAttribute('data-tab');
-      tabs.forEach(function (t) {
-        t.classList.remove('active');
-        t.setAttribute('aria-selected', 'false');
-      });
-      tab.classList.add('active');
-      tab.setAttribute('aria-selected', 'true');
-      panels.forEach(function (panel) {
-        panel.hidden = (panel.id !== 'tab-' + target);
-      });
-    });
-  });
-})();
-
 // ---------- See More / Collapse (universal) ----------
 (function initSeeMore() {
   document.querySelectorAll('[data-see-more]').forEach(function (container) {
@@ -291,10 +269,24 @@ var tlObserver = new IntersectionObserver(function (entries) {
   });
 }, { threshold: 0.1 });
 
-// Observe all timeline items and set stagger delays
 document.querySelectorAll('.tl-item').forEach(function (el, i) {
   el.style.setProperty('--delay', (i % 5) * 80 + 'ms');
   tlObserver.observe(el);
+});
+
+// ---------- CV alternating entry animations ----------
+var cvObserver = new IntersectionObserver(function (entries) {
+  entries.forEach(function (entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('cv-entry--visible');
+      cvObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.cv-entry').forEach(function (el, i) {
+  el.style.setProperty('--delay', (i % 6) * 90 + 'ms');
+  cvObserver.observe(el);
 });
 
 // ---------- Fade-in on scroll ----------

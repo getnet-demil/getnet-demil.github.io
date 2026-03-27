@@ -2147,3 +2147,215 @@ button { cursor: pointer; font-family: var(--font-sans); }
   background: var(--color-primary-light);
   text-decoration: none;
 }
+
+/* =====================================================
+   HERO TITLE (two-line professional title)
+   ===================================================== */
+.hero-title {
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 6px 0 2px;
+  letter-spacing: 0.01em;
+}
+.hero-subtitle {
+  font-size: clamp(0.85rem, 1.6vw, 0.97rem);
+  font-weight: 400;
+  color: var(--color-text-muted);
+  margin: 0 0 18px;
+}
+
+/* =====================================================
+   EVENT STREAM (News section)
+   ===================================================== */
+.event-stream {
+  border-top: 1px solid var(--color-border);
+  margin-top: 4px;
+}
+.event-row {
+  display: grid;
+  grid-template-columns: 88px 108px 1fr;
+  gap: 0 18px;
+  align-items: start;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--color-border);
+  transition: background var(--transition);
+}
+.event-row:hover { background: var(--color-primary-light); border-radius: var(--radius-sm); }
+.event-date {
+  font: 500 0.78rem var(--font-mono);
+  color: var(--color-text-faint);
+  padding-top: 3px;
+  white-space: nowrap;
+}
+.event-badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  margin-top: 1px;
+}
+.event-badge--presentation { background: var(--color-primary-light);  color: var(--color-primary); }
+.event-badge--conference   { background: var(--color-primary-light);  color: var(--color-primary); }
+.event-badge--workshop     { background: var(--color-purple-light);   color: var(--color-purple); }
+.event-badge--publication  { background: var(--color-accent-light);   color: var(--color-accent); }
+.event-badge--award        { background: rgba(248,113,113,0.13);      color: #f87171; }
+.event-title {
+  font-size: 0.93rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 3px;
+  line-height: 1.4;
+}
+.event-detail {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+@media (max-width: 600px) {
+  .event-row { grid-template-columns: 1fr; gap: 4px; }
+  .event-date { order: 2; font-size: 0.72rem; }
+  .event-badge { order: 1; }
+  .event-body { order: 3; }
+}
+
+/* =====================================================
+   CV ALTERNATING TIMELINE
+   ===================================================== */
+.cv-timeline {
+  position: relative;
+  padding: 24px 0 8px;
+}
+.cv-timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0; bottom: 0;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg,
+    var(--color-primary) 0%,
+    var(--color-purple)  45%,
+    var(--color-accent)  85%,
+    var(--color-primary) 100%);
+  background-size: 100% 300%;
+  animation: railPulse 8s ease-in-out infinite;
+  border-radius: 2px;
+}
+.cv-entry {
+  position: relative;
+  width: calc(50% - 32px);
+  margin-bottom: 32px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.45s ease var(--delay, 0ms), transform 0.45s ease var(--delay, 0ms);
+}
+.cv-entry--visible { opacity: 1; transform: translateY(0); }
+.cv-entry--left  { margin-right: auto; }
+.cv-entry--right { margin-left: auto;  }
+.cv-entry:last-child { margin-bottom: 0; }
+.cv-dot {
+  position: absolute;
+  top: 18px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--category-color, var(--color-primary));
+  border: 2px solid var(--color-bg);
+  z-index: 2;
+  box-shadow: 0 0 0 2px var(--category-color, var(--color-primary)),
+              0 0 10px rgba(0,200,180,0.35);
+  transition: transform var(--transition);
+}
+.cv-entry--left  .cv-dot { right: -39px; left: auto; }
+.cv-entry--right .cv-dot { left: -39px; }
+.cv-entry:hover .cv-dot  { transform: scale(1.25); }
+.cv-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  position: relative;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.cv-card:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-md);
+}
+/* Arrow connector pointing toward central rail */
+.cv-entry--left .cv-card::after {
+  content: '';
+  position: absolute;
+  right: -9px; top: 19px;
+  width: 0; height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 9px solid var(--color-border);
+}
+.cv-entry--left .cv-card::before {
+  content: '';
+  position: absolute;
+  right: -8px; top: 20px;
+  width: 0; height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 8px solid var(--color-surface);
+  z-index: 1;
+}
+.cv-entry--right .cv-card::after {
+  content: '';
+  position: absolute;
+  left: -9px; top: 19px;
+  width: 0; height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 9px solid var(--color-border);
+}
+.cv-entry--right .cv-card::before {
+  content: '';
+  position: absolute;
+  left: -8px; top: 20px;
+  width: 0; height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 8px solid var(--color-surface);
+  z-index: 1;
+}
+/* category colors */
+.cv-entry[data-category="position"]  { --category-color: var(--color-primary); }
+.cv-entry[data-category="visit"]     { --category-color: #60a5fa; }
+.cv-entry[data-category="education"] { --category-color: var(--color-accent); }
+
+/* Responsive: collapse to single column */
+@media (max-width: 768px) {
+  .cv-timeline::before { left: 18px; transform: none; }
+  .cv-entry { width: calc(100% - 46px); margin-left: 46px; }
+  .cv-entry--left  .cv-dot,
+  .cv-entry--right .cv-dot { left: -35px; right: auto; }
+  .cv-entry--left .cv-card::after,
+  .cv-entry--right .cv-card::after { display: none; }
+  .cv-entry--left .cv-card::before,
+  .cv-entry--right .cv-card::before { display: none; }
+}
+
+/* =====================================================
+   FOOTER — icons-only layout
+   ===================================================== */
+.footer-socials-only {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 8px 0 6px;
+}
+.footer-copy-center {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--color-text-faint);
+  margin: 0;
+}
