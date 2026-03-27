@@ -191,12 +191,26 @@
     </div>
   </section>
 
-  <!-- ========== NEWS ========== -->
+  <!-- ========== NEWS + BLOG ========== -->
   <section class="section section-alt" id="news">
     <div class="container">
-      <h2 class="section-title">Latest News</h2>
-      <p class="section-subtitle">A chronological record of conferences, publications, and research milestones.</p>
+      <h2 class="section-title">News &amp; Blog</h2>
+      <p class="section-subtitle">Research milestones and publications alongside the latest posts from Medium.</p>
 
+      <div class="news-tabs" role="tablist" aria-label="News and Blog">
+        <button class="news-tab active" role="tab" aria-selected="true"
+                aria-controls="tab-news" id="tab-btn-news" data-tab="news">
+          News
+        </button>
+        <button class="news-tab" role="tab" aria-selected="false"
+                aria-controls="tab-blog" id="tab-btn-blog" data-tab="blog">
+          Blog
+          <span class="news-tab-badge" id="mediumBadge"></span>
+        </button>
+      </div>
+
+      <!-- News panel -->
+      <div id="tab-news" role="tabpanel" aria-labelledby="tab-btn-news">
       <div class="event-stream" data-see-more="5">
 
         <div class="event-row">
@@ -279,20 +293,17 @@
           <svg class="see-more-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
       </div>
+      </div><!-- end #tab-news -->
 
-    </div>
-  </section>
-
-  <!-- ========== BLOG ========== -->
-  <section class="section" id="blog">
-    <div class="container">
-      <h2 class="section-title">Blog</h2>
-      <p class="section-subtitle">Latest posts from <a href="https://medium.com/@getnetdemil" target="_blank" rel="noopener noreferrer">medium.com/@getnetdemil</a> — auto-updated whenever a new post is published.</p>
-      <div id="mediumFeed" class="medium-feed">
-        <div class="medium-loading" aria-live="polite">
-          <span class="spinner"></span> Loading posts from Medium…
+      <!-- Blog panel -->
+      <div id="blog" role="tabpanel" aria-labelledby="tab-btn-blog" hidden>
+        <div id="mediumFeed" class="medium-feed">
+          <div class="medium-loading" aria-live="polite">
+            <span class="spinner"></span> Loading posts from Medium…
+          </div>
         </div>
       </div>
+
     </div>
   </section>
 

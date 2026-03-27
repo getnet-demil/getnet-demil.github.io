@@ -118,6 +118,39 @@
     });
 })();
 
+// ---------- News / Blog Tabs ----------
+(function initNewsTabs() {
+  var tabs   = document.querySelectorAll('.news-tab');
+  var panels = document.querySelectorAll('[role="tabpanel"]');
+  if (!tabs.length) return;
+
+  function activateTab(targetId) {
+    tabs.forEach(function (t) {
+      var isTarget = t.getAttribute('data-tab') === targetId;
+      t.classList.toggle('active', isTarget);
+      t.setAttribute('aria-selected', String(isTarget));
+    });
+    panels.forEach(function (panel) {
+      panel.hidden = (panel.id !== 'tab-' + targetId && panel.id !== targetId);
+    });
+  }
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      activateTab(tab.getAttribute('data-tab'));
+    });
+  });
+
+  // Auto-activate Blog tab when URL hash is #blog
+  if (window.location.hash === '#blog') {
+    activateTab('blog');
+  }
+  window.addEventListener('hashchange', function () {
+    if (window.location.hash === '#blog') activateTab('blog');
+    if (window.location.hash === '#news')  activateTab('news');
+  });
+})();
+
 // ---------- See More / Collapse (universal) ----------
 (function initSeeMore() {
   document.querySelectorAll('[data-see-more]').forEach(function (container) {
