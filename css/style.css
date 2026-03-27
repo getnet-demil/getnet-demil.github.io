@@ -1944,49 +1944,123 @@ button { cursor: pointer; font-family: var(--font-sans); }
 }
 
 /* Skills / Tech Stack grid */
-.skills-section-title {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: 24px;
-}
+/* =====================================================
+   SKILLS REDESIGN — categorised cards + language strip
+   ===================================================== */
+.skills-redesign { margin-top: 48px; }
 
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
+.skills-redesign-title {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
   gap: 12px;
 }
+.skills-redesign-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
 
-.skill-item {
+.skill-cats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.skill-cat {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--cat-color, var(--color-primary));
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  transition: box-shadow var(--transition);
+}
+.skill-cat:hover { box-shadow: var(--shadow-md); }
+
+.skill-cat--eo   { --cat-color: var(--color-primary); }
+.skill-cat--cv   { --cat-color: var(--color-accent); }
+.skill-cat--fm   { --cat-color: var(--color-purple); }
+.skill-cat--prog { --cat-color: #3b9ede; }
+
+.skill-cat-head {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 16px 10px;
+  gap: 7px;
+  margin-bottom: 12px;
+  color: var(--cat-color, var(--color-primary));
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.skill-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.skill-pill {
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 3px 10px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.skill-cat:hover .skill-pill {
+  border-color: color-mix(in srgb, var(--cat-color) 40%, transparent);
+}
+.skill-pill:hover {
+  border-color: var(--cat-color, var(--color-primary)) !important;
+  color: var(--cat-color, var(--color-primary));
+}
+
+/* Language strip */
+.lang-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.lang-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  text-align: center;
-  transition: all var(--transition);
-  cursor: default;
+  padding: 12px 18px;
+  flex: 1;
+  min-width: 150px;
+  transition: box-shadow var(--transition);
 }
-.skill-item:hover {
-  border-color: var(--color-primary);
-  background: var(--color-surface-2);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
-}
-.skill-icon {
-  font-size: 1.6rem;
-  line-height: 1;
-}
-.skill-label {
-  font-size: 0.72rem;
+.lang-card:hover { box-shadow: var(--shadow-md); }
+.lang-name {
   font-weight: 600;
-  color: var(--color-text-muted);
-  letter-spacing: 0.02em;
+  font-size: 0.9rem;
+  color: var(--color-text);
 }
+.lang-badge {
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+.lang-badge--native       { background: rgba(0,200,180,0.15);  color: var(--color-primary); }
+.lang-badge--professional { background: rgba(240,165,0,0.15);  color: var(--color-accent);  }
+.lang-badge--a1           { background: rgba(139,92,246,0.15); color: var(--color-purple);  }
 
 /* =====================================================
    RESPONSIVE – new sections
@@ -1999,20 +2073,16 @@ button { cursor: pointer; font-family: var(--font-sans); }
 @media (max-width: 900px) {
   .projects-grid { grid-template-columns: 1fr 1fr; }
   .service-layout { grid-template-columns: 1fr; }
-  .skills-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 768px) {
+  .skill-cats { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   .projects-grid { grid-template-columns: 1fr; }
-  .skills-grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 640px) {
   .tl-item { padding-left: 40px; }
   .news-timeline::before, .tl-group-items::before { left: 12px; }
   .tl-dot { left: 5px; }
   .tl-group-title { margin-left: 40px; }
-}
-@media (max-width: 400px) {
-  .skills-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* =====================================================
