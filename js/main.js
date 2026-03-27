@@ -141,14 +141,21 @@
     });
   });
 
-  // Auto-activate Blog tab when URL hash is #blog
+  // Navbar "Blog" link — activate tab and scroll to section
+  var navBlogLink = document.querySelector('.nav-links a[href="#blog"]');
+  if (navBlogLink) {
+    navBlogLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      activateTab('blog');
+      document.getElementById('news').scrollIntoView({ behavior: 'smooth' });
+      history.replaceState(null, '', '#blog');
+    });
+  }
+
+  // Auto-activate Blog tab on direct page load with #blog hash
   if (window.location.hash === '#blog') {
     activateTab('blog');
   }
-  window.addEventListener('hashchange', function () {
-    if (window.location.hash === '#blog') activateTab('blog');
-    if (window.location.hash === '#news')  activateTab('news');
-  });
 })();
 
 // ---------- See More / Collapse (universal) ----------
