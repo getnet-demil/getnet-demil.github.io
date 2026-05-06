@@ -2429,3 +2429,215 @@ button { cursor: pointer; font-family: var(--font-sans); }
   color: var(--color-text-faint);
   margin: 0;
 }
+
+/* =====================================================
+   ENHANCEMENTS — Animations, Visual Depth, Dynamicism
+   ===================================================== */
+
+/* ---------- Section Label (decorative pre-title) ---------- */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.70rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 10px;
+  opacity: 0.9;
+}
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 1px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+/* ---------- Animated section divider ---------- */
+.section-divider {
+  display: block;
+  width: 100%;
+  height: 2px;
+  border: none;
+  margin: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-primary) 20%,
+    var(--color-accent)  50%,
+    var(--color-purple)  80%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: dividerScroll 5s linear infinite;
+  opacity: 0.45;
+}
+@keyframes dividerScroll {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+/* ---------- Section title underline expands on hover ---------- */
+.section-title::after {
+  transition: width 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.section-title:hover::after { width: 88px; }
+
+/* ---------- Improved about-text readability ---------- */
+.about-text p {
+  font-size: 1.06rem;
+  line-height: 1.92;
+  margin-bottom: 26px;
+}
+
+/* ---------- Hero entrance animations ---------- */
+.hero-avatar {
+  animation: heroScaleIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.10s both;
+}
+@keyframes heroScaleIn {
+  from { opacity: 0; transform: scale(0.80); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.hero-pre         { animation: heroFadeUp 0.60s ease 0.28s both; }
+.hero-name        { animation: heroFadeUp 0.60s ease 0.42s both; }
+.hero-title       { animation: heroFadeUp 0.60s ease 0.56s both; }
+.hero-subtitle    { animation: heroFadeUp 0.60s ease 0.68s both; }
+.hero-affiliation { animation: heroFadeUp 0.60s ease 0.82s both; }
+.hero-tags        { animation: heroFadeUp 0.60s ease 0.96s both; }
+.hero-links       { animation: heroFadeUp 0.60s ease 1.10s both; }
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-avatar, .hero-pre, .hero-name, .hero-title,
+  .hero-subtitle, .hero-affiliation, .hero-tags, .hero-links {
+    animation: none;
+  }
+}
+
+/* ---------- Typing cursor ---------- */
+.typed-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 0.82em;
+  background: var(--color-primary);
+  margin-left: 1px;
+  vertical-align: middle;
+  border-radius: 1px;
+  animation: cursorBlink 0.65s step-end infinite;
+}
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ---------- Staggered card delays ---------- */
+.about-highlights .highlight-card:nth-child(1) { transition-delay:   0ms; }
+.about-highlights .highlight-card:nth-child(2) { transition-delay:  90ms; }
+.about-highlights .highlight-card:nth-child(3) { transition-delay: 180ms; }
+.about-highlights .highlight-card:nth-child(4) { transition-delay: 270ms; }
+
+.interests-grid .interest-card:nth-child(1) { transition-delay:   0ms; }
+.interests-grid .interest-card:nth-child(2) { transition-delay:  90ms; }
+.interests-grid .interest-card:nth-child(3) { transition-delay: 180ms; }
+.interests-grid .interest-card:nth-child(4) { transition-delay: 270ms; }
+.interests-grid .interest-card:nth-child(5) { transition-delay: 360ms; }
+
+.research-projects .project-card:nth-child(1) { transition-delay:   0ms; }
+.research-projects .project-card:nth-child(2) { transition-delay:  90ms; }
+.research-projects .project-card:nth-child(3) { transition-delay: 180ms; }
+
+.projects-grid .project-card-full:nth-child(1) { transition-delay:   0ms; }
+.projects-grid .project-card-full:nth-child(2) { transition-delay:  90ms; }
+.projects-grid .project-card-full:nth-child(3) { transition-delay: 180ms; }
+.projects-grid .project-card-full:nth-child(4) { transition-delay: 270ms; }
+.projects-grid .project-card-full:nth-child(5) { transition-delay: 360ms; }
+.projects-grid .project-card-full:nth-child(6) { transition-delay: 450ms; }
+
+.service-layout .service-block:nth-child(1) { transition-delay:   0ms; }
+.service-layout .service-block:nth-child(2) { transition-delay: 120ms; }
+
+/* ---------- Enhanced hover glow on cards ---------- */
+.project-card-full:hover,
+.project-card:hover {
+  box-shadow: var(--shadow-lg), 0 0 30px rgba(0, 200, 180, 0.13);
+}
+.interest-card:hover {
+  box-shadow: var(--shadow-md), 0 0 22px rgba(0, 200, 180, 0.10);
+}
+.highlight-card:hover {
+  box-shadow: -3px 0 0 var(--color-primary), var(--shadow-md), 0 0 20px rgba(0, 200, 180, 0.08);
+}
+
+/* ---------- Publication card accent on hover ---------- */
+.publication-card:hover {
+  border-left-width: 4px;
+  box-shadow: var(--shadow-md), 0 0 18px rgba(0, 200, 180, 0.07);
+}
+
+/* ---------- Skill pill shimmer ---------- */
+.skill-pill {
+  position: relative;
+  overflow: hidden;
+}
+.skill-pill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent);
+  transition: left 0.42s ease;
+}
+.skill-pill:hover::after { left: 160%; }
+
+/* ---------- Dot-grid texture for alternate sections ---------- */
+.section-alt {
+  position: relative;
+}
+.section-alt::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--color-border) 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.30;
+  pointer-events: none;
+  z-index: 0;
+}
+.section-alt > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Floating particles canvas ---------- */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---------- Improve card text legibility ---------- */
+.highlight-card p {
+  font-size: 0.895rem;
+  line-height: 1.62;
+}
+.project-card-desc {
+  font-size: 0.895rem;
+  line-height: 1.72;
+}
+.interest-card p {
+  font-size: 0.855rem;
+  line-height: 1.65;
+  color: var(--color-text-body);
+}

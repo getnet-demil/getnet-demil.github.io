@@ -415,3 +415,152 @@ if (navBrand) {
 // Run once at init
 handleNavbarScroll();
 updateActiveNavLink();
+
+// ---------- Hero Typewriter Effect ----------
+(function initTypewriter() {
+  var el = document.querySelector('.hero-subtitle');
+  if (!el) return;
+
+  var SPEED_WRITE          = 58;   // ms per character when typing
+  var SPEED_DELETE         = 32;   // ms per character when deleting
+  var PAUSE_BETWEEN_PHRASES = 2000; // ms to pause at end of phrase
+  var DELAY_BEFORE_NEXT    = 350;   // ms before starting next phrase
+  var HERO_SETTLE_DELAY    = 1900;  // ms to wait for hero animations to settle
+
+  var originalText = el.textContent.trim();
+  var phrases = [
+    originalText,
+    'Deep Learning for Earth Observation',
+    'SAR & Optical Satellite Image Fusion',
+    'Snow Hydrology & Cryosphere Science',
+    originalText
+  ];
+
+  var cursor = document.createElement('span');
+  cursor.className = 'typed-cursor';
+  cursor.setAttribute('aria-hidden', 'true');
+
+  var phraseIdx = 0;
+  var charIdx   = 0;
+  var deleting  = false;
+  var stopped   = false;
+
+  function type() {
+    if (stopped) return;
+    var current = phrases[phraseIdx];
+    if (deleting) {
+      charIdx = Math.max(0, charIdx - 1);
+    } else {
+      charIdx++;
+    }
+    el.textContent = current.slice(0, charIdx);
+    el.appendChild(cursor);
+
+    var delay = deleting ? SPEED_DELETE : SPEED_WRITE;
+    if (!deleting && charIdx === current.length) {
+      if (phraseIdx === phrases.length - 1) { stopped = true; return; }
+      delay    = PAUSE_BETWEEN_PHRASES;
+      deleting = true;
+    } else if (deleting && charIdx === 0) {
+      deleting  = false;
+      phraseIdx = phraseIdx + 1;
+      delay     = DELAY_BEFORE_NEXT;
+    }
+    setTimeout(type, delay);
+  }
+
+  // Wait for hero animations to settle before typing
+  setTimeout(function () {
+    el.textContent = '';
+    el.appendChild(cursor);
+    type();
+  }, HERO_SETTLE_DELAY);
+})();
+
+// ---------- Hero Floating Particles ----------
+(function initHeroParticles() {
+  var hero = document.querySelector('.hero');
+  if (!hero) return;
+
+  var canvas = document.createElement('canvas');
+  canvas.className = 'hero-particles';
+  hero.insertBefore(canvas, hero.firstChild);
+
+  var ctx = canvas.getContext('2d');
+  var particles = [];
+  var N   = 48;
+  var raf = null;
+
+  function resize() {
+    canvas.width  = hero.offsetWidth;
+    canvas.height = hero.offsetHeight;
+  }
+
+  function spawn(forceBottom) {
+    return {
+      x:  Math.random() * canvas.width,
+      y:  forceBottom ? canvas.height + 4 : Math.random() * canvas.height,
+      r:  Math.random() * 1.2 + 0.4,
+      dx: (Math.random() - 0.5) * 0.22,
+      dy: -(Math.random() * 0.40 + 0.15),
+      op: Math.random() * 0.42 + 0.12
+    };
+  }
+
+  function init() {
+    particles = [];
+    for (var i = 0; i < N; i++) { particles.push(spawn(false)); }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(0,200,180,' + p.op + ')';
+      ctx.fill();
+      p.x += p.dx;
+      p.y += p.dy;
+      if (p.y < -6 || p.x < -6 || p.x > canvas.width + 6) {
+        particles[i] = spawn(true);
+      }
+    }
+    raf = requestAnimationFrame(draw);
+  }
+
+  // Pause when hero is not visible to save CPU
+  new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        if (!raf) draw();
+      } else {
+        if (raf) { cancelAnimationFrame(raf); raf = null; }
+      }
+    });
+  }).observe(hero);
+
+  window.addEventListener('resize', function () { resize(); init(); }, { passive: true });
+  resize();
+  init();
+  draw();
+})();
+
+// ---------- Staggered card transition delays ----------
+(function initStaggeredCards() {
+  var CARD_STAGGER_DELAY = 90; // ms between each card (matches CSS nth-child fallback)
+  var groups = [
+    { container: '.about-highlights',  items: '.highlight-card' },
+    { container: '.interests-grid',    items: '.interest-card' },
+    { container: '.projects-grid',     items: '.project-card-full' },
+    { container: '.research-projects', items: '.project-card' },
+    { container: '.service-layout',    items: '.service-block' }
+  ];
+  groups.forEach(function (group) {
+    var container = document.querySelector(group.container);
+    if (!container) return;
+    container.querySelectorAll(group.items).forEach(function (card, i) {
+      card.style.transitionDelay = (i * CARD_STAGGER_DELAY) + 'ms';
+    });
+  });
+})();
