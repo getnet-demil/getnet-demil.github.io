@@ -421,12 +421,19 @@ updateActiveNavLink();
   var el = document.querySelector('.hero-subtitle');
   if (!el) return;
 
+  var SPEED_WRITE          = 58;   // ms per character when typing
+  var SPEED_DELETE         = 32;   // ms per character when deleting
+  var PAUSE_BETWEEN_PHRASES = 2000; // ms to pause at end of phrase
+  var DELAY_BEFORE_NEXT    = 350;   // ms before starting next phrase
+  var HERO_SETTLE_DELAY    = 1900;  // ms to wait for hero animations to settle
+
+  var originalText = el.textContent.trim();
   var phrases = [
-    el.textContent.trim(),
+    originalText,
     'Deep Learning for Earth Observation',
     'SAR & Optical Satellite Image Fusion',
     'Snow Hydrology & Cryosphere Science',
-    el.textContent.trim()
+    originalText
   ];
 
   var cursor = document.createElement('span');
@@ -449,15 +456,15 @@ updateActiveNavLink();
     el.textContent = current.slice(0, charIdx);
     el.appendChild(cursor);
 
-    var delay = deleting ? 32 : 58;
+    var delay = deleting ? SPEED_DELETE : SPEED_WRITE;
     if (!deleting && charIdx === current.length) {
       if (phraseIdx === phrases.length - 1) { stopped = true; return; }
-      delay    = 2000;
+      delay    = PAUSE_BETWEEN_PHRASES;
       deleting = true;
     } else if (deleting && charIdx === 0) {
       deleting  = false;
       phraseIdx = phraseIdx + 1;
-      delay     = 350;
+      delay     = DELAY_BEFORE_NEXT;
     }
     setTimeout(type, delay);
   }
@@ -467,7 +474,7 @@ updateActiveNavLink();
     el.textContent = '';
     el.appendChild(cursor);
     type();
-  }, 1900);
+  }, HERO_SETTLE_DELAY);
 })();
 
 // ---------- Hero Floating Particles ----------
@@ -541,6 +548,7 @@ updateActiveNavLink();
 
 // ---------- Staggered card transition delays ----------
 (function initStaggeredCards() {
+  var CARD_STAGGER_DELAY = 90; // ms between each card (matches CSS nth-child fallback)
   var groups = [
     { container: '.about-highlights',  items: '.highlight-card' },
     { container: '.interests-grid',    items: '.interest-card' },
@@ -552,7 +560,7 @@ updateActiveNavLink();
     var container = document.querySelector(group.container);
     if (!container) return;
     container.querySelectorAll(group.items).forEach(function (card, i) {
-      card.style.transitionDelay = (i * 85) + 'ms';
+      card.style.transitionDelay = (i * CARD_STAGGER_DELAY) + 'ms';
     });
   });
 })();
