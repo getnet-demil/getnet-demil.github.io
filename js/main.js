@@ -84,35 +84,53 @@
       return;
     }
 
-    var fallback = document.createElement('p');
-    fallback.className = 'linkedin-widget-fallback';
-    fallback.appendChild(document.createTextNode(
-      'Add your latest LinkedIn post URL to '
-    ));
+    var safeProfileUrl = normalizeLinkedInUrl(profileUrl) ||
+      'https://www.linkedin.com/in/getnetdemil/recent-activity/all/';
 
-    var postUrlCode = document.createElement('code');
-    postUrlCode.textContent = 'data-linkedin-post-url';
-    fallback.appendChild(postUrlCode);
+    var card = document.createElement('a');
+    card.className = 'medium-card medium-card--linkedin';
+    card.href = safeProfileUrl;
+    card.target = '_blank';
+    card.rel = 'noopener noreferrer';
 
-    fallback.appendChild(document.createTextNode(' in '));
+    var cardMeta = document.createElement('div');
+    cardMeta.className = 'medium-card-meta';
 
-    var fileCode = document.createElement('code');
-    fileCode.textContent = 'index.html';
-    fallback.appendChild(fileCode);
+    var svgNS = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('width', '16');
+    svg.setAttribute('height', '16');
+    svg.setAttribute('fill', '#0a66c2');
+    svg.setAttribute('aria-hidden', 'true');
+    var svgPath = document.createElementNS(svgNS, 'path');
+    svgPath.setAttribute('d', 'M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z');
+    svg.appendChild(svgPath);
+    cardMeta.appendChild(svg);
 
-    fallback.appendChild(document.createTextNode(' to show the embedded post here. '));
+    var metaLabel = document.createElement('span');
+    metaLabel.className = 'medium-date';
+    metaLabel.textContent = 'LINKEDIN';
+    cardMeta.appendChild(metaLabel);
 
-    var safeProfileUrl = normalizeLinkedInUrl(profileUrl);
-    if (safeProfileUrl) {
-      var profileLink = document.createElement('a');
-      profileLink.href = safeProfileUrl;
-      profileLink.target = '_blank';
-      profileLink.rel = 'noopener noreferrer';
-      profileLink.textContent = 'Open LinkedIn activity';
-      fallback.appendChild(profileLink);
-      fallback.appendChild(document.createTextNode('.'));
-    }
-    widget.appendChild(fallback);
+    card.appendChild(cardMeta);
+
+    var cardTitle = document.createElement('h3');
+    cardTitle.className = 'medium-title';
+    cardTitle.textContent = 'Latest Activity on LinkedIn';
+    card.appendChild(cardTitle);
+
+    var cardExcerpt = document.createElement('p');
+    cardExcerpt.className = 'medium-excerpt';
+    cardExcerpt.textContent = 'Follow research updates, field work insights, and professional milestones.';
+    card.appendChild(cardExcerpt);
+
+    var cardReadLink = document.createElement('span');
+    cardReadLink.className = 'medium-read-link';
+    cardReadLink.textContent = 'Open LinkedIn activity \u2192';
+    card.appendChild(cardReadLink);
+
+    widget.appendChild(card);
   }
 
   render();
