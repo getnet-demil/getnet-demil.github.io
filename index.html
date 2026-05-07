@@ -180,7 +180,7 @@
     <div class="container">
       <p class="section-label">Latest Updates</p>
       <h2 class="section-title">News &amp; Blog</h2>
-      <p class="section-subtitle">Research milestones and publications alongside the latest posts from Medium.</p>
+      <p class="section-subtitle">Research milestones, Medium stories, and a featured LinkedIn post in one place.</p>
 
       <div class="news-tabs" role="tablist" aria-label="News and Blog">
         <button class="news-tab active" role="tab" aria-selected="true"
@@ -309,6 +309,15 @@
 
       <!-- Blog panel -->
       <div id="blog" role="tabpanel" aria-labelledby="tab-btn-blog" hidden>
+        <div id="linkedinPostWidget"
+             class="linkedin-widget fade-in"
+             data-linkedin-profile-url="https://www.linkedin.com/in/getnetdemil/recent-activity/all/"
+             data-linkedin-post-url="">
+          <!-- Set data-linkedin-post-url to your latest post URL, e.g. https://www.linkedin.com/feed/update/urn:li:activity:1234567890123456789/ -->
+          <div class="medium-loading" aria-live="polite">
+            <span class="spinner"></span> Loading latest LinkedIn post…
+          </div>
+        </div>
         <div id="mediumFeed" class="medium-feed">
           <div class="medium-loading" aria-live="polite">
             <span class="spinner"></span> Loading posts from Medium…
