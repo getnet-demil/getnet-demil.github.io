@@ -3,39 +3,6 @@
    Arctic Aurora Academic Portfolio — Getnet Demil Jenberia
    ===================================================== */
 
-// ---------- Live Citation Count (Semantic Scholar API) ----------
-(function fetchLiveCitations() {
-  var url = 'https://api.semanticscholar.org/graph/v1/author/search' +
-    '?query=Getnet+Demil+Jenberia&fields=name,citationCount,paperCount,hIndex&limit=5';
-
-  fetch(url)
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
-      if (!data.data || !data.data.length) return;
-      var best = null;
-      data.data.forEach(function (author) {
-        var name = (author.name || '').toLowerCase();
-        if (name.indexOf('getnet') === -1) return;
-        if (!best || (author.citationCount || 0) > (best.citationCount || 0)) {
-          best = author;
-        }
-      });
-      if (!best || !best.citationCount) return;
-      var citEl = document.querySelector('.metric-number[data-count]');
-      if (citEl) {
-        citEl.setAttribute('data-count', best.citationCount);
-        var subtitleEl = document.querySelector('#publications .section-subtitle');
-        if (subtitleEl) {
-          subtitleEl.innerHTML = subtitleEl.innerHTML.replace(
-            /\d+\+?\s*citations/i,
-            best.citationCount + '+ citations'
-          );
-        }
-      }
-    })
-    .catch(function () { /* keep static fallback */ });
-})();
-
 // ---------- Medium RSS Feed (via rss2json.com) ----------
 (function initMediumFeed() {
   var container = document.getElementById('mediumFeed');
@@ -268,36 +235,6 @@ function updateActiveNavLink() {
   });
 }
 window.addEventListener('scroll', updateActiveNavLink, { passive: true });
-
-// ---------- Animated Counters ----------
-function animateCounter(el) {
-  var target   = parseInt(el.getAttribute('data-count'), 10);
-  var duration = 1400;
-  var start    = null;
-  function step(ts) {
-    if (!start) start = ts;
-    var progress = Math.min((ts - start) / duration, 1);
-    var eased = 1 - Math.pow(1 - progress, 3);
-    el.textContent = Math.round(eased * target);
-    if (progress < 1) requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
-}
-
-var counterEls   = document.querySelectorAll('.metric-number[data-count]');
-var countersSeen = false;
-var counterObserver = new IntersectionObserver(function (entries) {
-  entries.forEach(function (entry) {
-    if (entry.isIntersecting && !countersSeen) {
-      countersSeen = true;
-      counterEls.forEach(animateCounter);
-      counterObserver.disconnect();
-    }
-  });
-}, { threshold: 0.3 });
-if (counterEls.length > 0) {
-  counterObserver.observe(counterEls[0].closest('.about-metrics') || counterEls[0]);
-}
 
 // ---------- Timeline item scroll animations ----------
 var tlObserver = new IntersectionObserver(function (entries) {
