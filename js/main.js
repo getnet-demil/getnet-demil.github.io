@@ -4,6 +4,84 @@
    ===================================================== */
 
 // ---------- Medium RSS Feed (via rss2json.com) ----------
+(function initLinkedInPostWidget() {
+  var widget = document.getElementById('linkedinPostWidget');
+  if (!widget) return;
+
+  var profileUrl = 'https://www.linkedin.com/in/getnetdemil/recent-activity/all/';
+  var postUrl = (widget.getAttribute('data-linkedin-post-url') || '').trim();
+
+  function getEmbedUrl(url) {
+    if (!url) return null;
+    if (url.indexOf('/embed/feed/update/') !== -1) return url;
+
+    var activityMatch = url.match(/activity-(\d+)/);
+    if (activityMatch && activityMatch[1]) {
+      return 'https://www.linkedin.com/embed/feed/update/urn:li:activity:' + activityMatch[1];
+    }
+
+    var urnMatch = url.match(/urn:li:(?:activity|share):(\d+)/);
+    if (urnMatch && urnMatch[1]) {
+      return 'https://www.linkedin.com/embed/feed/update/urn:li:activity:' + urnMatch[1];
+    }
+
+    var postMatch = url.match(/posts\/[^/?#]+-(\d+)/);
+    if (postMatch && postMatch[1]) {
+      return 'https://www.linkedin.com/embed/feed/update/urn:li:activity:' + postMatch[1];
+    }
+
+    return null;
+  }
+
+  function createHeader() {
+    var header = document.createElement('div');
+    header.className = 'linkedin-widget-header';
+
+    var title = document.createElement('h3');
+    title.className = 'linkedin-widget-title';
+    title.textContent = 'Latest LinkedIn Post';
+
+    var link = document.createElement('a');
+    link.className = 'linkedin-widget-link';
+    link.href = profileUrl;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = 'View all updates \u2192';
+
+    header.appendChild(title);
+    header.appendChild(link);
+    return header;
+  }
+
+  function render() {
+    widget.innerHTML = '';
+    widget.appendChild(createHeader());
+
+    var embedUrl = getEmbedUrl(postUrl);
+    if (embedUrl) {
+      var frame = document.createElement('iframe');
+      frame.className = 'linkedin-widget-frame';
+      frame.src = embedUrl;
+      frame.setAttribute('allowfullscreen', '');
+      frame.title = 'Latest LinkedIn Post';
+      widget.appendChild(frame);
+      return;
+    }
+
+    var fallback = document.createElement('p');
+    fallback.className = 'linkedin-widget-fallback';
+    fallback.innerHTML =
+      'Add your latest LinkedIn post URL to <code>data-linkedin-post-url</code> in ' +
+      '<code>index.html</code> to show the embedded post here. ' +
+      '<a href="' + profileUrl + '" target="_blank" rel="noopener noreferrer">Open LinkedIn activity</a>.';
+    widget.appendChild(fallback);
+  }
+
+  render();
+
+  if (window.fadeObserverInstance) fadeObserverInstance.observe(widget);
+})();
+
 (function initMediumFeed() {
   var container = document.getElementById('mediumFeed');
   if (!container) return;
@@ -49,16 +127,6 @@
         '</a>' +
       '</article>';
     }).join('');
-
-    // LinkedIn CTA card
-    html += '<div class="medium-card medium-card--linkedin fade-in">' +
-      '<div class="medium-card-meta"><span class="medium-read">Professional updates</span></div>' +
-      '<h3 class="medium-title">Follow on LinkedIn</h3>' +
-      '<p class="medium-excerpt">Research updates, conference posts, and collaboration opportunities.</p>' +
-      '<a class="medium-read-link" href="https://www.linkedin.com/in/getnetdemil/" target="_blank" rel="noopener noreferrer">' +
-        'View LinkedIn Profile \u2192' +
-      '</a>' +
-    '</div>';
 
     container.innerHTML = html;
 
