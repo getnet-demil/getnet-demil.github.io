@@ -117,7 +117,7 @@
 
   render();
 
-  if (window.fadeObserverInstance) fadeObserverInstance.observe(widget);
+  if (window.fadeObserverInstance) window.fadeObserverInstance.observe(widget);
 })();
 
 (function initMediumFeed() {
