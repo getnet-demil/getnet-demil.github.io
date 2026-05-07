@@ -8,7 +8,7 @@
   var widget = document.getElementById('linkedinPostWidget');
   if (!widget) return;
 
-  var profileUrl = 'https://www.linkedin.com/in/getnetdemil/recent-activity/all/';
+  var profileUrl = (widget.getAttribute('data-linkedin-profile-url') || 'https://www.linkedin.com/in/getnetdemil/recent-activity/all/').trim();
   var postUrl = (widget.getAttribute('data-linkedin-post-url') || '').trim();
 
   function getEmbedUrl(url) {
@@ -63,6 +63,7 @@
       frame.className = 'linkedin-widget-frame';
       frame.src = embedUrl;
       frame.setAttribute('allowfullscreen', '');
+      frame.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups');
       frame.title = 'Latest LinkedIn Post';
       widget.appendChild(frame);
       return;
@@ -70,10 +71,30 @@
 
     var fallback = document.createElement('p');
     fallback.className = 'linkedin-widget-fallback';
-    fallback.innerHTML =
-      'Add your latest LinkedIn post URL to <code>data-linkedin-post-url</code> in ' +
-      '<code>index.html</code> to show the embedded post here. ' +
-      '<a href="' + profileUrl + '" target="_blank" rel="noopener noreferrer">Open LinkedIn activity</a>.';
+    fallback.appendChild(document.createTextNode(
+      'Add your latest LinkedIn post URL to '
+    ));
+
+    var postUrlCode = document.createElement('code');
+    postUrlCode.textContent = 'data-linkedin-post-url';
+    fallback.appendChild(postUrlCode);
+
+    fallback.appendChild(document.createTextNode(' in '));
+
+    var fileCode = document.createElement('code');
+    fileCode.textContent = 'index.html';
+    fallback.appendChild(fileCode);
+
+    fallback.appendChild(document.createTextNode(' to show the embedded post here. '));
+
+    var profileLink = document.createElement('a');
+    profileLink.href = profileUrl;
+    profileLink.target = '_blank';
+    profileLink.rel = 'noopener noreferrer';
+    profileLink.textContent = 'Open LinkedIn activity';
+    fallback.appendChild(profileLink);
+
+    fallback.appendChild(document.createTextNode('.'));
     widget.appendChild(fallback);
   }
 
