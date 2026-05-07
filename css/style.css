@@ -1019,6 +1019,11 @@ button { cursor: pointer; font-family: var(--font-sans); }
   text-decoration: none;
 }
 .linkedin-widget-fallback a:hover { text-decoration: underline; }
+.linkedin-posts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
 .medium-card {
   display: flex;
   flex-direction: column;
@@ -1724,6 +1729,7 @@ button { cursor: pointer; font-family: var(--font-sans); }
 
   .contact-grid { grid-template-columns: repeat(3, 1fr); }
   .medium-feed  { grid-template-columns: 1fr; }
+  .linkedin-posts-grid { grid-template-columns: 1fr; }
   .linkedin-widget-frame { min-height: 300px; }
   .news-tabs    { width: 100%; }
   .news-tab     { flex: 1; justify-content: center; }
