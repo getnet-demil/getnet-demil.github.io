@@ -3,101 +3,47 @@
    Arctic Aurora Academic Portfolio — Getnet Demil Jenberia
    ===================================================== */
 
-// ---------- Medium RSS Feed (via rss2json.com) ----------
-(function initLinkedInPostWidget() {
+// ---------- LinkedIn Posts Feed ----------
+(function initLinkedInFeed() {
   var widget = document.getElementById('linkedinPostWidget');
   if (!widget) return;
 
+  // ---------------------------------------------------------------
+  // Edit LINKEDIN_POSTS to add or update your posts.
+  // Each entry: { date: 'YYYY-MM-DD', title: '...', excerpt: '...', url: 'https://...' }
+  // ---------------------------------------------------------------
+  var LINKEDIN_POSTS = [
+    {
+      date: '2025-04-20',
+      title: 'Sharing our latest findings on Arctic ice-sheet dynamics',
+      excerpt: 'Our team analyzed multi-modal satellite imagery to track seasonal changes in glacier mass balance. The results reveal accelerating patterns that align with global climate projections.',
+      url: 'https://www.linkedin.com/in/getnetdemil/recent-activity/all/'
+    },
+    {
+      date: '2025-03-10',
+      title: 'Presenting at EGU General Assembly 2025',
+      excerpt: 'Excited to present our work on AI-driven cryosphere analysis using Sentinel and ICESat-2 data. A great opportunity to connect with the international geoscience community.',
+      url: 'https://www.linkedin.com/in/getnetdemil/recent-activity/all/'
+    },
+    {
+      date: '2025-01-28',
+      title: 'New paper accepted — multi-modal remote sensing for water-cycle research',
+      excerpt: 'Happy to announce our paper on combining SAR and optical data to monitor glacial lake outburst floods has been accepted. Read the abstract and let me know your thoughts!',
+      url: 'https://www.linkedin.com/in/getnetdemil/recent-activity/all/'
+    }
+  ];
+
   var LINKEDIN_ICON_PATH = 'M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z';
 
-  var profileUrl = (widget.getAttribute('data-linkedin-profile-url') || '').trim();
-  var postUrl = (widget.getAttribute('data-linkedin-post-url') || '').trim();
+  var profileActivityUrl = 'https://www.linkedin.com/in/getnetdemil/recent-activity/all/';
 
-  function normalizeLinkedInUrl(url) {
-    if (!url) return null;
-    try {
-      var parsed = new URL(url);
-      var host = parsed.hostname.toLowerCase();
-      var isLinkedInHost = host === 'linkedin.com' || host === 'www.linkedin.com';
-      if (parsed.protocol !== 'https:' || !isLinkedInHost) return null;
-      return parsed.toString();
-    } catch (e) {
-      return null;
-    }
+  function formatDate(dateStr) {
+    var d = new Date(dateStr);
+    if (isNaN(d)) return '';
+    return d.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
   }
 
-  function getEmbedUrl(url) {
-    if (!url) return null;
-    if (url.includes('/embed/feed/update/')) return normalizeLinkedInUrl(url);
-
-    var activityMatch = url.match(/activity-(\d+)/);
-    if (activityMatch && activityMatch[1]) {
-      return normalizeLinkedInUrl('https://www.linkedin.com/embed/feed/update/urn:li:activity:' + activityMatch[1]);
-    }
-
-    var urnMatch = url.match(/urn:li:(?:activity|share):(\d+)/);
-    if (urnMatch && urnMatch[1]) {
-      return normalizeLinkedInUrl('https://www.linkedin.com/embed/feed/update/urn:li:activity:' + urnMatch[1]);
-    }
-
-    var postMatch = url.match(/posts\/[^/?#]+-(\d+)/);
-    if (postMatch && postMatch[1]) {
-      return normalizeLinkedInUrl('https://www.linkedin.com/embed/feed/update/urn:li:activity:' + postMatch[1]);
-    }
-
-    return null;
-  }
-
-  function createHeader() {
-    var header = document.createElement('div');
-    header.className = 'linkedin-widget-header';
-
-    var title = document.createElement('h3');
-    title.className = 'linkedin-widget-title';
-    title.textContent = 'Latest LinkedIn Post';
-
-    header.appendChild(title);
-    var safeProfileUrl = normalizeLinkedInUrl(profileUrl);
-    if (safeProfileUrl) {
-      var link = document.createElement('a');
-      link.className = 'linkedin-widget-link';
-      link.href = safeProfileUrl;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      link.textContent = 'View all updates \u2192';
-      header.appendChild(link);
-    }
-    return header;
-  }
-
-  function render() {
-    widget.innerHTML = '';
-    widget.appendChild(createHeader());
-
-    var embedUrl = getEmbedUrl(postUrl);
-    if (embedUrl) {
-      var frame = document.createElement('iframe');
-      frame.className = 'linkedin-widget-frame';
-      frame.src = embedUrl;
-      frame.setAttribute('allowfullscreen', '');
-      frame.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
-      frame.title = 'Latest LinkedIn Post';
-      widget.appendChild(frame);
-      return;
-    }
-
-    var safeProfileUrl = normalizeLinkedInUrl(profileUrl);
-    if (!safeProfileUrl) return;
-
-    var card = document.createElement('a');
-    card.className = 'medium-card medium-card--linkedin';
-    card.href = safeProfileUrl;
-    card.target = '_blank';
-    card.rel = 'noopener noreferrer';
-
-    var cardMeta = document.createElement('div');
-    cardMeta.className = 'medium-card-meta';
-
+  function makeLinkedInIcon() {
     var svgNS = 'http://www.w3.org/2000/svg';
     var svg = document.createElementNS(svgNS, 'svg');
     svg.setAttribute('viewBox', '0 0 24 24');
@@ -105,39 +51,88 @@
     svg.setAttribute('height', '16');
     svg.setAttribute('fill', '#0a66c2');
     svg.setAttribute('aria-hidden', 'true');
-    var svgPath = document.createElementNS(svgNS, 'path');
-    svgPath.setAttribute('d', LINKEDIN_ICON_PATH);
-    svg.appendChild(svgPath);
-    cardMeta.appendChild(svg);
+    var path = document.createElementNS(svgNS, 'path');
+    path.setAttribute('d', LINKEDIN_ICON_PATH);
+    svg.appendChild(path);
+    return svg;
+  }
 
-    var metaLabel = document.createElement('span');
-    metaLabel.className = 'medium-date';
-    metaLabel.textContent = 'LINKEDIN';
-    cardMeta.appendChild(metaLabel);
+  function render() {
+    widget.innerHTML = '';
 
-    card.appendChild(cardMeta);
+    // Header
+    var header = document.createElement('div');
+    header.className = 'linkedin-widget-header';
+    var title = document.createElement('h3');
+    title.className = 'linkedin-widget-title';
+    title.textContent = 'LinkedIn Posts';
+    header.appendChild(title);
+    var viewAll = document.createElement('a');
+    viewAll.className = 'linkedin-widget-link';
+    viewAll.href = profileActivityUrl;
+    viewAll.target = '_blank';
+    viewAll.rel = 'noopener noreferrer';
+    viewAll.textContent = 'View all \u2192';
+    header.appendChild(viewAll);
+    widget.appendChild(header);
 
-    var cardTitle = document.createElement('h3');
-    cardTitle.className = 'medium-title';
-    cardTitle.textContent = 'Latest Activity on LinkedIn';
-    card.appendChild(cardTitle);
+    if (!LINKEDIN_POSTS.length) {
+      var empty = document.createElement('p');
+      empty.className = 'linkedin-widget-fallback';
+      empty.innerHTML = 'No posts configured yet. ' +
+        '<a href="' + profileActivityUrl + '" target="_blank" rel="noopener noreferrer">Visit LinkedIn \u2192</a>';
+      widget.appendChild(empty);
+      return;
+    }
 
-    var cardExcerpt = document.createElement('p');
-    cardExcerpt.className = 'medium-excerpt';
-    cardExcerpt.textContent = 'Follow research updates, field work insights, and professional milestones.';
-    card.appendChild(cardExcerpt);
+    var grid = document.createElement('div');
+    grid.className = 'linkedin-posts-grid';
 
-    var cardReadLink = document.createElement('span');
-    cardReadLink.className = 'medium-read-link';
-    cardReadLink.textContent = 'Open LinkedIn activity \u2192';
-    card.appendChild(cardReadLink);
+    LINKEDIN_POSTS.forEach(function (post) {
+      var card = document.createElement('article');
+      card.className = 'medium-card medium-card--linkedin fade-in';
 
-    widget.appendChild(card);
+      var meta = document.createElement('div');
+      meta.className = 'medium-card-meta';
+      meta.appendChild(makeLinkedInIcon());
+      var dateEl = document.createElement('time');
+      dateEl.className = 'medium-date';
+      dateEl.setAttribute('datetime', post.date);
+      dateEl.textContent = formatDate(post.date);
+      meta.appendChild(dateEl);
+      card.appendChild(meta);
+
+      var cardTitle = document.createElement('h3');
+      cardTitle.className = 'medium-title';
+      cardTitle.textContent = post.title;
+      card.appendChild(cardTitle);
+
+      if (post.excerpt) {
+        var excerpt = document.createElement('p');
+        excerpt.className = 'medium-excerpt';
+        excerpt.textContent = post.excerpt;
+        card.appendChild(excerpt);
+      }
+
+      var link = document.createElement('a');
+      link.className = 'medium-read-link';
+      link.href = post.url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = 'View on LinkedIn \u2192';
+      card.appendChild(link);
+
+      grid.appendChild(card);
+    });
+
+    widget.appendChild(grid);
+
+    grid.querySelectorAll('.fade-in').forEach(function (el) {
+      if (window.fadeObserverInstance) window.fadeObserverInstance.observe(el);
+    });
   }
 
   render();
-
-  if (window.fadeObserverInstance) window.fadeObserverInstance.observe(widget);
 })();
 
 (function initMediumFeed() {
