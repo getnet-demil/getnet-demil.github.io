@@ -26,7 +26,7 @@
 
   function getEmbedUrl(url) {
     if (!url) return null;
-    if (url.indexOf('/embed/feed/update/') !== -1) return normalizeLinkedInUrl(url);
+    if (url.includes('/embed/feed/update/')) return normalizeLinkedInUrl(url);
 
     var activityMatch = url.match(/activity-(\d+)/);
     if (activityMatch && activityMatch[1]) {
@@ -78,7 +78,7 @@
       frame.className = 'linkedin-widget-frame';
       frame.src = embedUrl;
       frame.setAttribute('allowfullscreen', '');
-      frame.setAttribute('sandbox', 'allow-scripts allow-popups');
+      frame.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
       frame.title = 'Latest LinkedIn Post';
       widget.appendChild(frame);
       return;
