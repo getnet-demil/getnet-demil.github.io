@@ -8,26 +8,39 @@
   var widget = document.getElementById('linkedinPostWidget');
   if (!widget) return;
 
-  var profileUrl = (widget.getAttribute('data-linkedin-profile-url') || 'https://www.linkedin.com/in/getnetdemil/recent-activity/all/').trim();
+  var profileUrl = (widget.getAttribute('data-linkedin-profile-url') || '').trim();
   var postUrl = (widget.getAttribute('data-linkedin-post-url') || '').trim();
+
+  function normalizeLinkedInUrl(url) {
+    if (!url) return null;
+    try {
+      var parsed = new URL(url);
+      var host = parsed.hostname.toLowerCase();
+      var isLinkedInHost = host === 'linkedin.com' || host === 'www.linkedin.com';
+      if (parsed.protocol !== 'https:' || !isLinkedInHost) return null;
+      return parsed.toString();
+    } catch (e) {
+      return null;
+    }
+  }
 
   function getEmbedUrl(url) {
     if (!url) return null;
-    if (url.indexOf('/embed/feed/update/') !== -1) return url;
+    if (url.indexOf('/embed/feed/update/') !== -1) return normalizeLinkedInUrl(url);
 
     var activityMatch = url.match(/activity-(\d+)/);
     if (activityMatch && activityMatch[1]) {
-      return 'https://www.linkedin.com/embed/feed/update/urn:li:activity:' + activityMatch[1];
+      return normalizeLinkedInUrl('https://www.linkedin.com/embed/feed/update/urn:li:activity:' + activityMatch[1]);
     }
 
     var urnMatch = url.match(/urn:li:(?:activity|share):(\d+)/);
     if (urnMatch && urnMatch[1]) {
-      return 'https://www.linkedin.com/embed/feed/update/urn:li:activity:' + urnMatch[1];
+      return normalizeLinkedInUrl('https://www.linkedin.com/embed/feed/update/urn:li:activity:' + urnMatch[1]);
     }
 
     var postMatch = url.match(/posts\/[^/?#]+-(\d+)/);
     if (postMatch && postMatch[1]) {
-      return 'https://www.linkedin.com/embed/feed/update/urn:li:activity:' + postMatch[1];
+      return normalizeLinkedInUrl('https://www.linkedin.com/embed/feed/update/urn:li:activity:' + postMatch[1]);
     }
 
     return null;
@@ -41,15 +54,17 @@
     title.className = 'linkedin-widget-title';
     title.textContent = 'Latest LinkedIn Post';
 
-    var link = document.createElement('a');
-    link.className = 'linkedin-widget-link';
-    link.href = profileUrl;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    link.textContent = 'View all updates \u2192';
-
     header.appendChild(title);
-    header.appendChild(link);
+    var safeProfileUrl = normalizeLinkedInUrl(profileUrl);
+    if (safeProfileUrl) {
+      var link = document.createElement('a');
+      link.className = 'linkedin-widget-link';
+      link.href = safeProfileUrl;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = 'View all updates \u2192';
+      header.appendChild(link);
+    }
     return header;
   }
 
@@ -63,7 +78,7 @@
       frame.className = 'linkedin-widget-frame';
       frame.src = embedUrl;
       frame.setAttribute('allowfullscreen', '');
-      frame.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups');
+      frame.setAttribute('sandbox', 'allow-scripts allow-popups');
       frame.title = 'Latest LinkedIn Post';
       widget.appendChild(frame);
       return;
@@ -87,14 +102,16 @@
 
     fallback.appendChild(document.createTextNode(' to show the embedded post here. '));
 
-    var profileLink = document.createElement('a');
-    profileLink.href = profileUrl;
-    profileLink.target = '_blank';
-    profileLink.rel = 'noopener noreferrer';
-    profileLink.textContent = 'Open LinkedIn activity';
-    fallback.appendChild(profileLink);
-
-    fallback.appendChild(document.createTextNode('.'));
+    var safeProfileUrl = normalizeLinkedInUrl(profileUrl);
+    if (safeProfileUrl) {
+      var profileLink = document.createElement('a');
+      profileLink.href = safeProfileUrl;
+      profileLink.target = '_blank';
+      profileLink.rel = 'noopener noreferrer';
+      profileLink.textContent = 'Open LinkedIn activity';
+      fallback.appendChild(profileLink);
+      fallback.appendChild(document.createTextNode('.'));
+    }
     widget.appendChild(fallback);
   }
 
