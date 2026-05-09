@@ -528,7 +528,7 @@ updateActiveNavLink();
       var p = particles[i];
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(0,200,180,' + p.op + ')';
+      ctx.fillStyle = 'rgba(220,147,35,' + p.op + ')';
       ctx.fill();
       p.x += p.dx;
       p.y += p.dy;
@@ -572,5 +572,53 @@ updateActiveNavLink();
     container.querySelectorAll(group.items).forEach(function (card, i) {
       card.style.transitionDelay = (i * CARD_STAGGER_DELAY) + 'ms';
     });
+  });
+})();
+
+// ---------- 3D Tilt on project cards ----------
+(function initCardTilt() {
+  var TILT = 7;
+  document.querySelectorAll('.project-card-full, .project-card').forEach(function (card) {
+    card.addEventListener('mousemove', function (e) {
+      var rect = card.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top)  / rect.height - 0.5;
+      card.style.transition = 'transform 0.12s ease, box-shadow 0.12s ease, border-color 0.2s ease, background 0.2s ease';
+      card.style.transform  =
+        'perspective(900px) rotateY(' + (x * TILT) + 'deg) rotateX(' + (-y * TILT) + 'deg) translateZ(6px)';
+    });
+    card.addEventListener('mouseleave', function () {
+      card.style.transition = 'transform 0.45s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease, border-color 0.2s ease, background 0.2s ease';
+      card.style.transform  = '';
+      setTimeout(function () { card.style.transition = ''; }, 460);
+    });
+  });
+})();
+
+// ---------- Section heading entrance reveal ----------
+(function initHeadingReveal() {
+  document.querySelectorAll('.section-label').forEach(function (el) {
+    el.classList.add('section-label--anim');
+  });
+  document.querySelectorAll('.section-title').forEach(function (el) {
+    el.classList.add('section-title--anim');
+  });
+  document.querySelectorAll('.section-subtitle').forEach(function (el) {
+    el.classList.add('section-subtitle--anim');
+  });
+
+  var headingObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        headingObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll(
+    '.section-label--anim, .section-title--anim, .section-subtitle--anim'
+  ).forEach(function (el) {
+    headingObserver.observe(el);
   });
 })();
