@@ -9,58 +9,35 @@
   if (!widget) return;
 
   // ---------------------------------------------------------------
-  // Edit LINKEDIN_POSTS to add or update your posts.
-  // Each entry: { date: 'YYYY-MM-DD', title: '...', excerpt: '...', url: 'https://...' }
+  // Add your LinkedIn post URLs here (one per line).
+  // To get a URL: open a LinkedIn post -> click "..." -> "Copy link to post"
+  // The URL looks like: https://www.linkedin.com/feed/update/urn:li:activity:XXXXXXXXXX/
+  // The activity ID is extracted automatically from whatever URL format you paste.
   // ---------------------------------------------------------------
-  var LINKEDIN_POSTS = [
-    {
-      date: '2025-04-20',
-      title: 'Sharing our latest findings on Arctic ice-sheet dynamics',
-      excerpt: 'Our team analyzed multi-modal satellite imagery to track seasonal changes in glacier mass balance. The results reveal accelerating patterns that align with global climate projections.',
-      url: 'https://www.linkedin.com/in/getnetdemil/recent-activity/all/'
-    },
-    {
-      date: '2025-03-10',
-      title: 'Presenting at EGU General Assembly 2025',
-      excerpt: 'Excited to present our work on AI-driven cryosphere analysis using Sentinel and ICESat-2 data. A great opportunity to connect with the international geoscience community.',
-      url: 'https://www.linkedin.com/in/getnetdemil/recent-activity/all/'
-    },
-    {
-      date: '2025-01-28',
-      title: 'New paper accepted — multi-modal remote sensing for water-cycle research',
-      excerpt: 'Happy to announce our paper on combining SAR and optical data to monitor glacial lake outburst floods has been accepted. Read the abstract and let me know your thoughts!',
-      url: 'https://www.linkedin.com/in/getnetdemil/recent-activity/all/'
-    }
+  var LINKEDIN_POST_URLS = [
+    'https://www.linkedin.com/feed/update/urn:li:activity:7392162365573660672/'
+    // Add more post URLs here, one per line:
+    // 'https://www.linkedin.com/feed/update/urn:li:activity:XXXXXXXXXX/'
   ];
-
-  var LINKEDIN_ICON_PATH = 'M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z';
 
   var profileActivityUrl = 'https://www.linkedin.com/in/getnetdemil/recent-activity/all/';
 
-  function formatDate(dateStr) {
-    var d = new Date(dateStr);
-    if (isNaN(d)) return '';
-    return d.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
+  function extractActivityId(url) {
+    var m = url.match(/activity[:\-](\d+)/);
+    return m ? m[1] : null;
   }
 
-  function makeLinkedInIcon() {
-    var svgNS = 'http://www.w3.org/2000/svg';
-    var svg = document.createElementNS(svgNS, 'svg');
-    svg.setAttribute('viewBox', '0 0 24 24');
-    svg.setAttribute('width', '16');
-    svg.setAttribute('height', '16');
-    svg.setAttribute('fill', '#0a66c2');
-    svg.setAttribute('aria-hidden', 'true');
-    var path = document.createElementNS(svgNS, 'path');
-    path.setAttribute('d', LINKEDIN_ICON_PATH);
-    svg.appendChild(path);
-    return svg;
+  function embedUrl(activityId) {
+    return 'https://www.linkedin.com/embed/feed/update/urn:li:activity:' + activityId;
   }
 
   function render() {
+    var ids = LINKEDIN_POST_URLS
+      .map(extractActivityId)
+      .filter(Boolean);
+
     widget.innerHTML = '';
 
-    // Header
     var header = document.createElement('div');
     header.className = 'linkedin-widget-header';
     var title = document.createElement('h3');
@@ -76,60 +53,35 @@
     header.appendChild(viewAll);
     widget.appendChild(header);
 
-    if (!LINKEDIN_POSTS.length) {
+    if (!ids.length) {
       var empty = document.createElement('p');
       empty.className = 'linkedin-widget-fallback';
       empty.innerHTML = 'No posts configured yet. ' +
-        '<a href="' + profileActivityUrl + '" target="_blank" rel="noopener noreferrer">Visit LinkedIn \u2192</a>';
+        '<a href="' + profileActivityUrl + '" target="_blank" rel="noopener noreferrer">Visit LinkedIn profile \u2192</a>';
       widget.appendChild(empty);
       return;
     }
 
     var grid = document.createElement('div');
-    grid.className = 'linkedin-posts-grid';
+    grid.className = 'linkedin-embeds-grid';
 
-    LINKEDIN_POSTS.forEach(function (post) {
-      var card = document.createElement('article');
-      card.className = 'medium-card medium-card--linkedin fade-in';
+    ids.forEach(function (id) {
+      var wrapper = document.createElement('div');
+      wrapper.className = 'linkedin-embed-wrapper';
 
-      var meta = document.createElement('div');
-      meta.className = 'medium-card-meta';
-      meta.appendChild(makeLinkedInIcon());
-      var dateEl = document.createElement('time');
-      dateEl.className = 'medium-date';
-      dateEl.setAttribute('datetime', post.date);
-      dateEl.textContent = formatDate(post.date);
-      meta.appendChild(dateEl);
-      card.appendChild(meta);
+      var iframe = document.createElement('iframe');
+      iframe.src = embedUrl(id);
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('title', 'LinkedIn post');
+      iframe.setAttribute('loading', 'lazy');
+      iframe.className = 'linkedin-embed-frame';
 
-      var cardTitle = document.createElement('h3');
-      cardTitle.className = 'medium-title';
-      cardTitle.textContent = post.title;
-      card.appendChild(cardTitle);
-
-      if (post.excerpt) {
-        var excerpt = document.createElement('p');
-        excerpt.className = 'medium-excerpt';
-        excerpt.textContent = post.excerpt;
-        card.appendChild(excerpt);
-      }
-
-      var link = document.createElement('a');
-      link.className = 'medium-read-link';
-      link.href = post.url;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      link.textContent = 'View on LinkedIn \u2192';
-      card.appendChild(link);
-
-      grid.appendChild(card);
+      wrapper.appendChild(iframe);
+      grid.appendChild(wrapper);
     });
 
     widget.appendChild(grid);
-
-    grid.querySelectorAll('.fade-in').forEach(function (el) {
-      if (window.fadeObserverInstance) window.fadeObserverInstance.observe(el);
-    });
   }
 
   render();
