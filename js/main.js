@@ -426,6 +426,39 @@ if (navBrand) {
 handleNavbarScroll();
 updateActiveNavLink();
 
+// ---------- Animated Stat Counters ----------
+(function initStatCounters() {
+  var nums = document.querySelectorAll('.stat-num[data-target]');
+  if (!nums.length) return;
+
+  function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+  function runCounter(el) {
+    var target  = parseInt(el.getAttribute('data-target'), 10);
+    var suffix  = el.getAttribute('data-suffix') || '';
+    var duration = 1800;
+    var start   = null;
+
+    function step(ts) {
+      if (!start) start = ts;
+      var elapsed  = ts - start;
+      var progress = Math.min(elapsed / duration, 1);
+      var value    = Math.round(easeOutCubic(progress) * target);
+      el.textContent = value + (progress >= 1 ? suffix : '');
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { runCounter(e.target); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.6 });
+
+  nums.forEach(function(el) { obs.observe(el); });
+})();
+
 // ---------- Hero Typewriter Effect ----------
 (function initTypewriter() {
   var el = document.querySelector('.hero-subtitle');

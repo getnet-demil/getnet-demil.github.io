@@ -59,6 +59,64 @@
     </div>
     <div class="hero-stars" aria-hidden="true"></div>
 
+    <!-- Earth Illustration (decorative) -->
+    <div class="hero-earth-wrap" aria-hidden="true">
+      <svg class="hero-earth-svg" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer halo -->
+        <circle cx="240" cy="240" r="215" fill="none" stroke="rgba(212,133,31,0.06)" stroke-width="1"/>
+        <!-- Earth sphere -->
+        <circle cx="240" cy="240" r="162" fill="rgba(212,133,31,0.025)" stroke="rgba(212,133,31,0.22)" stroke-width="1.5"/>
+        <!-- Latitude lines -->
+        <ellipse cx="240" cy="240" rx="162" ry="44" fill="none" stroke="rgba(212,133,31,0.09)" stroke-width="1"/>
+        <ellipse cx="240" cy="196" rx="150" ry="40" fill="none" stroke="rgba(212,133,31,0.06)" stroke-width="0.8"/>
+        <ellipse cx="240" cy="284" rx="150" ry="40" fill="none" stroke="rgba(212,133,31,0.06)" stroke-width="0.8"/>
+        <ellipse cx="240" cy="152" rx="110" ry="30" fill="none" stroke="rgba(212,133,31,0.04)" stroke-width="0.8"/>
+        <ellipse cx="240" cy="328" rx="110" ry="30" fill="none" stroke="rgba(212,133,31,0.04)" stroke-width="0.8"/>
+        <!-- Longitude curves -->
+        <path d="M240 78 C285 155 285 325 240 402" fill="none" stroke="rgba(212,133,31,0.07)" stroke-width="1"/>
+        <path d="M240 78 C195 155 195 325 240 402" fill="none" stroke="rgba(212,133,31,0.07)" stroke-width="1"/>
+        <path d="M240 78 C330 175 330 305 240 402" fill="none" stroke="rgba(212,133,31,0.04)" stroke-width="0.8"/>
+        <path d="M240 78 C150 175 150 305 240 402" fill="none" stroke="rgba(212,133,31,0.04)" stroke-width="0.8"/>
+        <!-- Snow/polar cap highlight -->
+        <ellipse cx="240" cy="100" rx="68" ry="22" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+        <ellipse cx="240" cy="380" rx="52" ry="16" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>
+        <!-- Data points (research sites) -->
+        <circle cx="195" cy="228" r="4.5" fill="rgba(212,133,31,0.90)"/>
+        <circle cx="195" cy="228" r="10" fill="none" stroke="rgba(212,133,31,0.30)" stroke-width="1">
+          <animate attributeName="r" values="10;18;10" dur="3.2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.30;0;0.30" dur="3.2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="260" cy="205" r="3.5" fill="rgba(236,184,102,0.90)"/>
+        <circle cx="285" cy="248" r="3" fill="rgba(212,133,31,0.80)"/>
+        <circle cx="222" cy="270" r="2.5" fill="rgba(236,184,102,0.70)"/>
+        <circle cx="272" cy="220" r="3" fill="rgba(212,133,31,0.75)"/>
+        <circle cx="210" cy="182" r="2" fill="rgba(212,133,31,0.55)"/>
+        <!-- Satellite orbit ring 1 -->
+        <ellipse cx="240" cy="240" rx="228" ry="92" fill="none" stroke="rgba(212,133,31,0.14)" stroke-width="1" stroke-dasharray="6 9"/>
+        <!-- Satellite 1 on orbit -->
+        <g>
+          <animateTransform attributeName="transform" type="rotate" from="0 240 240" to="360 240 240" dur="28s" repeatCount="indefinite"/>
+          <circle cx="468" cy="240" r="5.5" fill="rgba(212,133,31,0.95)"/>
+          <rect x="456" y="237.5" width="14" height="5" rx="1.5" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.25)" stroke-width="0.5"/>
+        </g>
+        <!-- Orbit ring 2 (tilted) -->
+        <ellipse cx="240" cy="240" rx="205" ry="72" fill="none" stroke="rgba(236,184,102,0.09)" stroke-width="1" stroke-dasharray="4 8" transform="rotate(40 240 240)"/>
+        <!-- Satellite 2 -->
+        <g transform="rotate(40 240 240)">
+          <animateTransform attributeName="transform" type="rotate" from="40 240 240" to="400 240 240" dur="20s" repeatCount="indefinite"/>
+          <circle cx="445" cy="240" r="4" fill="rgba(236,184,102,0.85)"/>
+        </g>
+        <!-- Beam from satellite to data point -->
+        <line x1="462" y1="244" x2="199" y2="232" stroke="rgba(212,133,31,0.10)" stroke-width="0.8" stroke-dasharray="4 6">
+          <animate attributeName="opacity" values="0.10;0.24;0.10" dur="3.2s" repeatCount="indefinite"/>
+        </line>
+        <!-- Rotating scan line -->
+        <line x1="78" y1="240" x2="402" y2="240" stroke="rgba(212,133,31,0.07)" stroke-width="0.8">
+          <animateTransform attributeName="transform" type="rotate" from="0 240 240" to="360 240 240" dur="24s" repeatCount="indefinite"/>
+        </line>
+      </svg>
+    </div>
+
     <div class="hero-content">
       <div class="hero-avatar">
         <img src="images/getnet_profile.png" alt="Portrait of Getnet Demil Jenberia" class="avatar-img" width="180" height="180" />
@@ -66,7 +124,7 @@
         <div class="avatar-ring avatar-ring--outer" aria-hidden="true"></div>
       </div>
 
-      <div class="hero-text">
+      <div class="hero-text" style="min-width:0">
         <p class="hero-pre">PhD Candidate</p>
         <h1 class="hero-name">Getnet Demil<br><span class="hero-name-accent">Jenberia</span></h1>
         <p class="hero-title">Geospatial AI &amp; Computer Vision Researcher</p>
@@ -110,12 +168,231 @@
           </a>
         </div>
       </div>
+      <!-- ═══ EO Dashboard Illustration ═══ -->
+      <div class="hero-visual" aria-hidden="true">
+        <svg class="eo-dashboard-svg" viewBox="0 0 380 400" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g-snow" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#daf0f8" stop-opacity="0.85"/>
+              <stop offset="45%" stop-color="#8ecfe4" stop-opacity="0.75"/>
+              <stop offset="100%" stop-color="#3a8fac" stop-opacity="0.6"/>
+            </linearGradient>
+            <linearGradient id="g-sar" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#160a00" stop-opacity="0.95"/>
+              <stop offset="40%" stop-color="#7a3a10" stop-opacity="0.85"/>
+              <stop offset="75%" stop-color="#d4851f" stop-opacity="0.75"/>
+              <stop offset="100%" stop-color="#ecb866" stop-opacity="0.55"/>
+            </linearGradient>
+            <linearGradient id="g-nn" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#0e0418" stop-opacity="0.95"/>
+              <stop offset="50%" stop-color="#3b1270" stop-opacity="0.85"/>
+              <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.6"/>
+            </linearGradient>
+            <linearGradient id="g-out" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#050f0a" stop-opacity="0.95"/>
+              <stop offset="50%" stop-color="#0c4a28" stop-opacity="0.85"/>
+              <stop offset="100%" stop-color="#22c55e" stop-opacity="0.55"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Panel border -->
+          <rect width="380" height="400" rx="16" fill="rgba(12,12,16,0.96)" stroke="rgba(212,133,31,0.22)" stroke-width="1.5"/>
+
+          <!-- Title bar -->
+          <rect x="0" y="0" width="380" height="40" rx="16" fill="rgba(212,133,31,0.07)"/>
+          <rect x="0" y="28" width="380" height="12" fill="rgba(212,133,31,0.07)"/>
+          <circle cx="22" cy="20" r="5" fill="rgba(212,133,31,0.80)"/>
+          <circle cx="38" cy="20" r="5" fill="rgba(236,184,102,0.55)"/>
+          <circle cx="54" cy="20" r="5" fill="rgba(255,255,255,0.18)"/>
+          <text x="74" y="24" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(255,255,255,0.38)" letter-spacing="0.12em">EO ANALYSIS DASHBOARD</text>
+          <!-- live dot -->
+          <circle cx="355" cy="20" r="4" fill="rgba(74,222,128,0.85)"/>
+          <circle cx="355" cy="20" r="7" fill="none" stroke="rgba(74,222,128,0.4)" stroke-width="1">
+            <animate attributeName="r" values="5;10;5" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.4;0;0.4" dur="2s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- ── Tile 1: Sentinel-2 Optical (top-left) ── -->
+          <rect x="14" y="50" width="164" height="146" rx="8" fill="url(#g-snow)"/>
+          <!-- terrain patches -->
+          <rect x="20" y="56" width="55" height="38" rx="3" fill="rgba(255,255,255,0.18)"/>
+          <rect x="80" y="60" width="40" height="28" rx="3" fill="rgba(255,255,255,0.22)"/>
+          <rect x="124" y="53" width="48" height="42" rx="3" fill="rgba(255,255,255,0.14)"/>
+          <rect x="30" y="100" width="75" height="30" rx="2" fill="rgba(255,255,255,0.10)"/>
+          <rect x="115" y="105" width="55" height="28" rx="2" fill="rgba(255,255,255,0.13)"/>
+          <rect x="20" y="136" width="100" height="20" rx="2" fill="rgba(96,165,250,0.20)"/>
+          <!-- detection box -->
+          <rect x="26" y="62" width="88" height="72" fill="none" stroke="rgba(212,133,31,0.90)" stroke-width="1.5" stroke-dasharray="5 3"/>
+          <!-- corner L-marks -->
+          <polyline points="26,62 38,62 38,72" fill="none" stroke="rgba(212,133,31,1)" stroke-width="2"/>
+          <polyline points="114,62 102,62 102,72" fill="none" stroke="rgba(212,133,31,1)" stroke-width="2"/>
+          <polyline points="26,134 38,134 38,124" fill="none" stroke="rgba(212,133,31,1)" stroke-width="2"/>
+          <polyline points="114,134 102,134 102,124" fill="none" stroke="rgba(212,133,31,1)" stroke-width="2"/>
+          <!-- classification label inside box -->
+          <rect x="30" y="100" width="52" height="13" rx="2" fill="rgba(212,133,31,0.75)"/>
+          <text x="56" y="110" font-family="JetBrains Mono,monospace" font-size="7" fill="#120800" text-anchor="middle" font-weight="700" letter-spacing="0.04em">SNOW ✓</text>
+          <!-- tile label -->
+          <rect x="14" y="184" width="164" height="12" rx="0 0 8 8" fill="rgba(0,0,0,0.55)"/>
+          <text x="20" y="193" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(212,133,31,0.90)" letter-spacing="0.07em">SENTINEL-2 · OPTICAL</text>
+
+          <!-- ── Tile 2: Sentinel-1 SAR (top-right) ── -->
+          <rect x="202" y="50" width="164" height="146" rx="8" fill="url(#g-sar)"/>
+          <!-- radar rings -->
+          <circle cx="284" cy="123" r="58" fill="none" stroke="rgba(212,133,31,0.14)" stroke-width="1"/>
+          <circle cx="284" cy="123" r="44" fill="none" stroke="rgba(212,133,31,0.11)" stroke-width="1"/>
+          <circle cx="284" cy="123" r="30" fill="none" stroke="rgba(212,133,31,0.09)" stroke-width="1"/>
+          <circle cx="284" cy="123" r="16" fill="none" stroke="rgba(212,133,31,0.07)" stroke-width="1"/>
+          <!-- crosshairs -->
+          <line x1="226" y1="123" x2="342" y2="123" stroke="rgba(212,133,31,0.16)" stroke-width="0.8"/>
+          <line x1="284" y1="65"  x2="284" y2="181" stroke="rgba(212,133,31,0.16)" stroke-width="0.8"/>
+          <!-- backscatter returns -->
+          <circle cx="258" cy="100" r="4.5" fill="rgba(212,133,31,0.85)"/>
+          <circle cx="303" cy="112" r="3.5" fill="rgba(236,184,102,0.80)"/>
+          <circle cx="272" cy="145" r="4"   fill="rgba(212,133,31,0.75)"/>
+          <circle cx="314" cy="88"  r="3"   fill="rgba(236,184,102,0.65)"/>
+          <circle cx="244" cy="135" r="2.5" fill="rgba(212,133,31,0.60)"/>
+          <circle cx="296" cy="152" r="3"   fill="rgba(212,133,31,0.55)"/>
+          <!-- rotating scan beam -->
+          <line x1="284" y1="123" x2="342" y2="85" stroke="rgba(212,133,31,0.30)" stroke-width="1.5">
+            <animateTransform attributeName="transform" type="rotate" from="0 284 123" to="360 284 123" dur="6s" repeatCount="indefinite"/>
+          </line>
+          <!-- tile label -->
+          <rect x="202" y="184" width="164" height="12" rx="0 0 8 8" fill="rgba(0,0,0,0.55)"/>
+          <text x="208" y="193" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(212,133,31,0.90)" letter-spacing="0.07em">SENTINEL-1 SAR</text>
+
+          <!-- ── Fusion badge (centre) ── -->
+          <rect x="164" y="112" width="52" height="28" rx="6" fill="rgba(139,92,246,0.18)" stroke="rgba(139,92,246,0.45)" stroke-width="1"/>
+          <text x="190" y="124" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(196,181,253,0.95)" letter-spacing="0.05em" text-anchor="middle" font-weight="700">FUSE</text>
+          <text x="190" y="136" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(196,181,253,0.70)" text-anchor="middle">⇅</text>
+
+          <!-- ── Tile 3: CNN-Transformer (bottom-left) ── -->
+          <rect x="14" y="210" width="164" height="130" rx="8" fill="url(#g-nn)"/>
+          <!-- input layer -->
+          <circle cx="42" cy="242" r="5" fill="rgba(212,133,31,0.80)" stroke="rgba(212,133,31,0.35)" stroke-width="1"/>
+          <circle cx="42" cy="260" r="5" fill="rgba(212,133,31,0.75)" stroke="rgba(212,133,31,0.35)" stroke-width="1"/>
+          <circle cx="42" cy="278" r="5" fill="rgba(212,133,31,0.65)" stroke="rgba(212,133,31,0.35)" stroke-width="1"/>
+          <circle cx="42" cy="296" r="5" fill="rgba(212,133,31,0.55)" stroke="rgba(212,133,31,0.35)" stroke-width="1"/>
+          <!-- hidden 1 -->
+          <circle cx="84" cy="250" r="6.5" fill="rgba(139,92,246,0.75)" stroke="rgba(139,92,246,0.40)" stroke-width="1"/>
+          <circle cx="84" cy="270" r="6.5" fill="rgba(139,92,246,0.70)" stroke="rgba(139,92,246,0.40)" stroke-width="1"/>
+          <circle cx="84" cy="290" r="6.5" fill="rgba(139,92,246,0.60)" stroke="rgba(139,92,246,0.40)" stroke-width="1"/>
+          <!-- hidden 2 -->
+          <circle cx="126" cy="257" r="7.5" fill="rgba(96,165,250,0.75)" stroke="rgba(96,165,250,0.40)" stroke-width="1"/>
+          <circle cx="126" cy="282" r="7.5" fill="rgba(96,165,250,0.65)" stroke="rgba(96,165,250,0.40)" stroke-width="1"/>
+          <!-- output -->
+          <circle cx="162" cy="269" r="9" fill="rgba(74,222,128,0.80)" stroke="rgba(74,222,128,0.50)" stroke-width="1.5"/>
+          <text x="162" y="272" font-family="JetBrains Mono,monospace" font-size="6" fill="rgba(0,0,0,0.85)" text-anchor="middle" font-weight="700">SWE</text>
+          <!-- connections -->
+          <line x1="47" y1="242" x2="77" y2="250" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
+          <line x1="47" y1="260" x2="77" y2="250" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
+          <line x1="47" y1="260" x2="77" y2="270" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
+          <line x1="47" y1="278" x2="77" y2="270" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
+          <line x1="47" y1="278" x2="77" y2="290" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
+          <line x1="47" y1="296" x2="77" y2="290" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
+          <line x1="91" y1="250" x2="118" y2="257" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+          <line x1="91" y1="270" x2="118" y2="257" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+          <line x1="91" y1="270" x2="118" y2="282" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+          <line x1="91" y1="290" x2="118" y2="282" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+          <line x1="134" y1="257" x2="153" y2="269" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+          <line x1="134" y1="282" x2="153" y2="269" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+          <!-- tile label -->
+          <rect x="14" y="328" width="164" height="12" rx="0 0 8 8" fill="rgba(0,0,0,0.55)"/>
+          <text x="20" y="337" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(196,181,253,0.90)" letter-spacing="0.07em">CNN-TRANSFORMER</text>
+
+          <!-- ── Tile 4: Analysis Output (bottom-right) ── -->
+          <rect x="202" y="210" width="164" height="130" rx="8" fill="url(#g-out)"/>
+          <!-- elevation contours -->
+          <path d="M210 255 C225 248 245 243 265 246 C285 249 300 255 318 252 C330 250 342 245 358 244" fill="none" stroke="rgba(74,222,128,0.30)" stroke-width="1.5"/>
+          <path d="M210 268 C230 261 252 256 272 260 C292 264 308 270 328 265 C340 262 352 258 366 256" fill="none" stroke="rgba(74,222,128,0.22)" stroke-width="1.2"/>
+          <path d="M210 282 C228 276 248 270 268 274 C288 278 306 284 326 278 C338 274 352 270 366 268" fill="none" stroke="rgba(74,222,128,0.16)" stroke-width="1"/>
+          <!-- snow classification overlay -->
+          <path d="M218 218 L275 215 L292 228 L322 222 L355 232 L358 252 L345 260 L305 256 L275 250 L244 255 L218 246 Z" fill="rgba(96,165,250,0.18)" stroke="rgba(96,165,250,0.40)" stroke-width="1"/>
+          <text x="264" y="240" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(96,165,250,0.90)" text-anchor="middle" letter-spacing="0.04em">SNOW COVER</text>
+          <!-- metrics -->
+          <text x="212" y="278" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(212,133,31,0.80)">SWE</text>
+          <rect x="212" y="281" width="142" height="3.5" rx="2" fill="rgba(255,255,255,0.08)"/>
+          <rect x="212" y="281" width="110" height="3.5" rx="2" fill="rgba(212,133,31,0.70)"/>
+          <text x="360" y="284" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(212,133,31,0.85)" text-anchor="end">78%</text>
+          <text x="212" y="295" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(96,165,250,0.80)">SNOW COVER</text>
+          <rect x="212" y="298" width="142" height="3.5" rx="2" fill="rgba(255,255,255,0.08)"/>
+          <rect x="212" y="298" width="92" height="3.5" rx="2" fill="rgba(96,165,250,0.70)"/>
+          <text x="360" y="301" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(96,165,250,0.85)" text-anchor="end">65%</text>
+          <text x="212" y="313" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(74,222,128,0.80)">CONFIDENCE</text>
+          <rect x="212" y="316" width="142" height="3.5" rx="2" fill="rgba(255,255,255,0.08)"/>
+          <rect x="212" y="316" width="122" height="3.5" rx="2" fill="rgba(74,222,128,0.70)"/>
+          <text x="360" y="319" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(74,222,128,0.85)" text-anchor="end">86%</text>
+          <!-- tile label -->
+          <rect x="202" y="328" width="164" height="12" rx="0 0 8 8" fill="rgba(0,0,0,0.55)"/>
+          <text x="208" y="337" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(74,222,128,0.90)" letter-spacing="0.07em">ANALYSIS OUTPUT</text>
+
+          <!-- bottom status bar -->
+          <rect x="14" y="348" width="352" height="36" rx="6" fill="rgba(212,133,31,0.06)" stroke="rgba(212,133,31,0.12)" stroke-width="1"/>
+          <circle cx="30" cy="366" r="4" fill="rgba(74,222,128,0.80)"/>
+          <text x="42" y="370" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(255,255,255,0.50)" letter-spacing="0.07em">CROSSFUSE MODEL · RUNNING</text>
+          <text x="358" y="370" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(212,133,31,0.70)" text-anchor="end" letter-spacing="0.04em">v2.1 · OULU</text>
+
+          <!-- corner brackets -->
+          <polyline points="4,4 18,4 18,18"  fill="none" stroke="rgba(212,133,31,0.45)" stroke-width="1.5"/>
+          <polyline points="376,4 362,4 362,18"   fill="none" stroke="rgba(212,133,31,0.45)" stroke-width="1.5"/>
+          <polyline points="4,396 18,396 18,382"  fill="none" stroke="rgba(212,133,31,0.45)" stroke-width="1.5"/>
+          <polyline points="376,396 362,396 362,382" fill="none" stroke="rgba(212,133,31,0.45)" stroke-width="1.5"/>
+        </svg>
+      </div>
     </div>
 
     <a class="scroll-down" href="#about" aria-label="Scroll to About section">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><polyline points="6 9 12 15 18 9"/></svg>
     </a>
   </section>
+
+  <!-- ========== STATS BAR ========== -->
+  <div class="stats-bar" aria-label="Research at a glance">
+    <div class="container">
+      <div class="stats-grid">
+
+        <div class="stat-item">
+          <div class="stat-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <div class="stat-value-wrap">
+            <span class="stat-num" data-target="6" data-suffix="">0</span>
+          </div>
+          <span class="stat-label">Publications</span>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+          </div>
+          <div class="stat-value-wrap">
+            <span class="stat-num" data-target="20" data-suffix="+">0</span>
+          </div>
+          <span class="stat-label">Citations</span>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+          </div>
+          <div class="stat-value-wrap">
+            <span class="stat-num" data-target="7" data-suffix="">0</span>
+          </div>
+          <span class="stat-label">Countries</span>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+          <div class="stat-value-wrap">
+            <span class="stat-num" data-target="8" data-suffix="+">0</span>
+          </div>
+          <span class="stat-label">Presentations</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
   <!-- ========== ABOUT ========== -->
   <section class="section" id="about">
@@ -173,6 +450,8 @@
           </div>
         </div>
       </div>
+
+
     </div>
   </section>
 
@@ -348,6 +627,42 @@
 
       <div class="research-projects">
         <div class="project-card">
+          <!-- Thumbnail: sensor fusion layers -->
+          <div class="project-thumb" aria-hidden="true">
+            <svg viewBox="0 0 300 110" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <linearGradient id="pt1a" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0d1a2a"/><stop offset="100%" stop-color="#1a3a5a"/></linearGradient>
+              </defs>
+              <rect width="300" height="110" fill="url(#pt1a)"/>
+              <!-- SAR layer -->
+              <rect x="12" y="14" width="80" height="55" rx="4" fill="rgba(212,133,31,0.15)" stroke="rgba(212,133,31,0.40)" stroke-width="1"/>
+              <circle cx="52" cy="41" r="18" fill="none" stroke="rgba(212,133,31,0.30)" stroke-width="1"/>
+              <circle cx="52" cy="41" r="12" fill="none" stroke="rgba(212,133,31,0.25)" stroke-width="1"/>
+              <circle cx="52" cy="41" r="6"  fill="none" stroke="rgba(212,133,31,0.20)" stroke-width="1"/>
+              <circle cx="52" cy="41" r="3"  fill="rgba(212,133,31,0.70)"/>
+              <text x="52" y="80" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(212,133,31,0.80)" text-anchor="middle" letter-spacing="0.05em">SAR</text>
+              <!-- Optical layer -->
+              <rect x="110" y="14" width="80" height="55" rx="4" fill="rgba(96,165,250,0.12)" stroke="rgba(96,165,250,0.38)" stroke-width="1"/>
+              <rect x="118" y="22" width="22" height="16" rx="2" fill="rgba(255,255,255,0.14)"/>
+              <rect x="144" y="22" width="16" height="16" rx="2" fill="rgba(96,165,250,0.22)"/>
+              <rect x="164" y="22" width="20" height="16" rx="2" fill="rgba(255,255,255,0.10)"/>
+              <rect x="118" y="42" width="64" height="12" rx="2" fill="rgba(96,165,250,0.15)"/>
+              <text x="150" y="80" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(96,165,250,0.80)" text-anchor="middle" letter-spacing="0.05em">OPTICAL</text>
+              <!-- Fusion arrows -->
+              <polyline points="96,41 108,41" stroke="rgba(139,92,246,0.70)" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+              <polyline points="194,41 206,41" stroke="rgba(139,92,246,0.70)" stroke-width="1.5" fill="none"/>
+              <text x="195" y="37" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(139,92,246,0.80)" letter-spacing="0.04em">→</text>
+              <text x="100" y="37" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(139,92,246,0.80)" letter-spacing="0.04em">→</text>
+              <!-- Output layer -->
+              <rect x="208" y="14" width="80" height="55" rx="4" fill="rgba(74,222,128,0.12)" stroke="rgba(74,222,128,0.38)" stroke-width="1"/>
+              <path d="M216 50 L225 38 L240 45 L258 28 L272 35 L280 25" fill="none" stroke="rgba(74,222,128,0.60)" stroke-width="1.5"/>
+              <path d="M216 57 L225 48 L240 52 L258 42 L272 48 L280 38" fill="none" stroke="rgba(212,133,31,0.45)" stroke-width="1"/>
+              <text x="248" y="80" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(74,222,128,0.80)" text-anchor="middle" letter-spacing="0.05em">OUTPUT</text>
+              <!-- label bar -->
+              <rect x="0" y="92" width="300" height="18" fill="rgba(0,0,0,0.45)"/>
+              <text x="10" y="104" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(255,255,255,0.45)" letter-spacing="0.06em">CROSSFUSE · SAR + OPTICAL FUSION</text>
+            </svg>
+          </div>
           <div class="project-icon" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="26" height="26"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
           </div>
@@ -362,6 +677,52 @@
         </div>
 
         <div class="project-card">
+          <!-- Thumbnail: snow / cloud segmentation -->
+          <div class="project-thumb" aria-hidden="true">
+            <svg viewBox="0 0 300 110" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <linearGradient id="pt2bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0a1020"/><stop offset="100%" stop-color="#1a2540"/></linearGradient>
+              </defs>
+              <rect width="300" height="110" fill="url(#pt2bg)"/>
+              <!-- Sentinel-2 image mock (left) -->
+              <rect x="10" y="10" width="130" height="75" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.10)" stroke-width="1"/>
+              <!-- snow patches (white) -->
+              <rect x="16" y="15" width="45" height="30" rx="3" fill="rgba(230,242,255,0.70)"/>
+              <rect x="65" y="12" width="30" height="20" rx="3" fill="rgba(220,235,255,0.65)"/>
+              <rect x="100" y="18" width="35" height="22" rx="3" fill="rgba(210,230,255,0.60)"/>
+              <!-- cloud patch -->
+              <ellipse cx="60" cy="58" rx="30" ry="14" fill="rgba(180,195,215,0.50)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+              <ellipse cx="95" cy="55" rx="18" ry="11" fill="rgba(175,190,210,0.45)"/>
+              <!-- bare ground -->
+              <rect x="16" y="55" width="30" height="25" rx="2" fill="rgba(74,100,60,0.40)"/>
+              <rect x="104" y="52" width="30" height="25" rx="2" fill="rgba(74,100,60,0.35)"/>
+              <text x="75" y="96" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(255,255,255,0.35)" text-anchor="middle">INPUT IMAGE</text>
+              <!-- Arrow -->
+              <text x="153" y="52" font-family="JetBrains Mono,monospace" font-size="14" fill="rgba(139,92,246,0.70)" text-anchor="middle">→</text>
+              <text x="153" y="65" font-family="JetBrains Mono,monospace" font-size="6.5" fill="rgba(139,92,246,0.60)" text-anchor="middle">mDLV3+</text>
+              <!-- Segmentation mask (right) -->
+              <rect x="163" y="10" width="130" height="75" rx="4" fill="rgba(0,0,0,0.30)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+              <!-- snow class (blue) -->
+              <rect x="168" y="15" width="45" height="30" rx="3" fill="rgba(96,165,250,0.70)"/>
+              <rect x="216" y="12" width="30" height="20" rx="3" fill="rgba(96,165,250,0.65)"/>
+              <rect x="250" y="18" width="37" height="22" rx="3" fill="rgba(96,165,250,0.60)"/>
+              <!-- cloud class (grey) -->
+              <ellipse cx="212" cy="58" rx="30" ry="14" fill="rgba(160,170,185,0.65)" stroke="rgba(255,255,255,0.10)" stroke-width="1"/>
+              <ellipse cx="247" cy="55" rx="18" ry="11" fill="rgba(155,165,180,0.60)"/>
+              <!-- ground class (green) -->
+              <rect x="168" y="55" width="30" height="25" rx="2" fill="rgba(74,222,128,0.55)"/>
+              <rect x="256" y="52" width="30" height="25" rx="2" fill="rgba(74,222,128,0.50)"/>
+              <!-- legend -->
+              <rect x="0" y="92" width="300" height="18" fill="rgba(0,0,0,0.50)"/>
+              <rect x="10" y="97" width="8" height="8" rx="1" fill="rgba(96,165,250,0.80)"/>
+              <text x="22" y="104" font-family="JetBrains Mono,monospace" font-size="6.5" fill="rgba(255,255,255,0.50)">Snow</text>
+              <rect x="70" y="97" width="8" height="8" rx="1" fill="rgba(160,170,185,0.80)"/>
+              <text x="82" y="104" font-family="JetBrains Mono,monospace" font-size="6.5" fill="rgba(255,255,255,0.50)">Cloud</text>
+              <rect x="130" y="97" width="8" height="8" rx="1" fill="rgba(74,222,128,0.80)"/>
+              <text x="142" y="104" font-family="JetBrains Mono,monospace" font-size="6.5" fill="rgba(255,255,255,0.50)">Ground</text>
+              <text x="220" y="104" font-family="JetBrains Mono,monospace" font-size="6.5" fill="rgba(212,133,31,0.70)">mDeepLabV3+</text>
+            </svg>
+          </div>
           <div class="project-icon" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="26" height="26"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
@@ -376,6 +737,51 @@
         </div>
 
         <div class="project-card">
+          <!-- Thumbnail: social media / NLP network -->
+          <div class="project-thumb" aria-hidden="true">
+            <svg viewBox="0 0 300 110" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <linearGradient id="pt3bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0a0a14"/><stop offset="100%" stop-color="#0f1a2e"/></linearGradient>
+              </defs>
+              <rect width="300" height="110" fill="url(#pt3bg)"/>
+              <!-- Network edges -->
+              <line x1="150" y1="55" x2="60"  y2="28"  stroke="rgba(212,133,31,0.25)" stroke-width="1"/>
+              <line x1="150" y1="55" x2="90"  y2="82"  stroke="rgba(212,133,31,0.22)" stroke-width="1"/>
+              <line x1="150" y1="55" x2="240" y2="32"  stroke="rgba(212,133,31,0.20)" stroke-width="1"/>
+              <line x1="150" y1="55" x2="220" y2="80"  stroke="rgba(212,133,31,0.22)" stroke-width="1"/>
+              <line x1="150" y1="55" x2="28"  y2="55"  stroke="rgba(212,133,31,0.18)" stroke-width="1"/>
+              <line x1="150" y1="55" x2="270" y2="55"  stroke="rgba(212,133,31,0.18)" stroke-width="1"/>
+              <line x1="60"  y1="28" x2="90"  y2="82"  stroke="rgba(139,92,246,0.15)" stroke-width="0.8"/>
+              <line x1="240" y1="32" x2="220" y2="80"  stroke="rgba(139,92,246,0.15)" stroke-width="0.8"/>
+              <line x1="28"  y1="55" x2="90"  y2="82"  stroke="rgba(96,165,250,0.12)" stroke-width="0.7"/>
+              <line x1="270" y1="55" x2="220" y2="80"  stroke="rgba(96,165,250,0.12)" stroke-width="0.7"/>
+              <!-- Satellite nodes (outer) -->
+              <circle cx="60"  cy="28" r="6" fill="rgba(212,133,31,0.75)" stroke="rgba(212,133,31,0.40)" stroke-width="1"/>
+              <circle cx="90"  cy="82" r="6" fill="rgba(212,133,31,0.70)" stroke="rgba(212,133,31,0.35)" stroke-width="1"/>
+              <circle cx="240" cy="32" r="6" fill="rgba(236,184,102,0.75)" stroke="rgba(236,184,102,0.40)" stroke-width="1"/>
+              <circle cx="220" cy="80" r="6" fill="rgba(236,184,102,0.70)" stroke="rgba(236,184,102,0.35)" stroke-width="1"/>
+              <circle cx="28"  cy="55" r="5" fill="rgba(96,165,250,0.65)" stroke="rgba(96,165,250,0.35)" stroke-width="1"/>
+              <circle cx="270" cy="55" r="5" fill="rgba(96,165,250,0.65)" stroke="rgba(96,165,250,0.35)" stroke-width="1"/>
+              <!-- Central AI node -->
+              <circle cx="150" cy="55" r="16" fill="rgba(139,92,246,0.20)" stroke="rgba(139,92,246,0.55)" stroke-width="1.5"/>
+              <circle cx="150" cy="55" r="10" fill="rgba(139,92,246,0.45)"/>
+              <text x="150" y="52" font-family="JetBrains Mono,monospace" font-size="6" fill="rgba(255,255,255,0.90)" text-anchor="middle" font-weight="700">NLP</text>
+              <text x="150" y="61" font-family="JetBrains Mono,monospace" font-size="6" fill="rgba(255,255,255,0.75)" text-anchor="middle">AI</text>
+              <!-- Pulse ring -->
+              <circle cx="150" cy="55" r="20" fill="none" stroke="rgba(139,92,246,0.30)" stroke-width="1">
+                <animate attributeName="r" values="18;28;18" dur="2.5s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.30;0;0.30" dur="2.5s" repeatCount="indefinite"/>
+              </circle>
+              <!-- Event labels near nodes -->
+              <text x="60"  y="20" font-family="JetBrains Mono,monospace" font-size="6" fill="rgba(212,133,31,0.75)" text-anchor="middle">FLOOD</text>
+              <text x="90"  y="97" font-family="JetBrains Mono,monospace" font-size="6" fill="rgba(212,133,31,0.70)" text-anchor="middle">DROUGHT</text>
+              <text x="240" y="24" font-family="JetBrains Mono,monospace" font-size="6" fill="rgba(236,184,102,0.75)" text-anchor="middle">WILDFIRE</text>
+              <text x="220" y="96" font-family="JetBrains Mono,monospace" font-size="6" fill="rgba(236,184,102,0.70)" text-anchor="middle">STORM</text>
+              <!-- bottom bar -->
+              <rect x="0" y="92" width="300" height="18" fill="rgba(0,0,0,0.50)"/>
+              <text x="10" y="104" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(255,255,255,0.40)" letter-spacing="0.06em">CLIMATE EVENT DETECTION · NLP PIPELINE</text>
+            </svg>
+          </div>
           <div class="project-icon" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="26" height="26"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
           </div>
@@ -391,42 +797,62 @@
       </div>
 
       <h3 class="subsection-title">Research Interests</h3>
-      <div class="interests-grid">
-        <div class="interest-card">
-          <div class="interest-icon-wrap" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="26" height="26"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/><path d="M2 12h20"/></svg>
+
+      <!-- Bento Grid -->
+      <div class="bento-grid">
+
+        <!-- Card 1: TALL — Geospatial AI (spans 2 rows) -->
+        <div class="bento-card bento-card--tall mo-hidden mo-delay-1">
+          <div class="bento-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/><path d="M2 12h20"/></svg>
           </div>
           <h3>Geospatial AI &amp; Earth Observation</h3>
-          <p>Designing scalable AI pipelines for large-area Earth observation - from pixel-level classification to geophysical parameter retrieval across diverse landscapes and sensor modalities.</p>
+          <p>Designing scalable AI pipelines for large-area Earth observation — from pixel-level classification to geophysical parameter retrieval across diverse landscapes and sensor modalities.</p>
+          <p style="margin-top:14px;">Specialising in snow cover mapping, fractional snow estimation, and hydrological parameter retrieval using multi-sensor satellite archives at continental scale.</p>
+          <div class="bento-tags">
+            <span class="bento-tag">SAR Fusion</span>
+            <span class="bento-tag">Segmentation</span>
+            <span class="bento-tag">GeoAI</span>
+            <span class="bento-tag">Sentinel</span>
+          </div>
         </div>
-        <div class="interest-card">
-          <div class="interest-icon-wrap" aria-hidden="true">
+
+        <!-- Card 2: Multi-Sensor Fusion -->
+        <div class="bento-card mo-hidden mo-delay-2">
+          <div class="bento-icon" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="26" height="26"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
           </div>
           <h3>Multi-Sensor &amp; Multimodal Fusion</h3>
-          <p>Cross-modal learning architectures that jointly process SAR, optical, multispectral, thermal, LiDAR, DEM, and climate reanalysis data - unlocking richer scene understanding than any single source.</p>
+          <p>Cross-modal learning architectures that jointly process SAR, optical, multispectral, thermal, LiDAR, DEM, and climate reanalysis data — unlocking richer scene understanding than any single source.</p>
         </div>
-        <div class="interest-card">
-          <div class="interest-icon-wrap" aria-hidden="true">
+
+        <!-- Card 3: Computer Vision -->
+        <div class="bento-card mo-hidden mo-delay-3">
+          <div class="bento-icon" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="26" height="26"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
           </div>
           <h3>Computer Vision for Remote Sensing</h3>
-          <p>Semantic segmentation, object detection, and scene understanding tailored to satellite and aerial imagery - addressing domain-specific challenges of scale, illumination, and spectral complexity.</p>
+          <p>Semantic segmentation, object detection, and scene understanding tailored to satellite and aerial imagery — addressing scale, illumination, and spectral complexity.</p>
         </div>
-        <div class="interest-card">
-          <div class="interest-icon-wrap" aria-hidden="true">
+
+        <!-- Card 4: Foundation Models -->
+        <div class="bento-card mo-hidden mo-delay-2">
+          <div class="bento-icon" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="26" height="26"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
           </div>
           <h3>Foundation Models for EO</h3>
-          <p>Fine-tuning and adapting large geospatial foundation models (SAM, DINO, SatMAE, Prithvi) to downstream EO tasks - change detection, land cover mapping, and environmental parameter retrieval.</p>
+          <p>Fine-tuning and adapting large geospatial foundation models (SAM, DINOv2, SatMAE, Prithvi) to downstream EO tasks — change detection, land cover, parameter retrieval.</p>
         </div>
-        <div class="interest-card">
-          <div class="interest-icon-wrap" aria-hidden="true">
+
+        <!-- Card 5: Environmental Monitoring -->
+        <div class="bento-card mo-hidden mo-delay-3">
+          <div class="bento-icon" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="26" height="26"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
           <h3>Environmental &amp; Climate Monitoring</h3>
-          <p>Multi-temporal satellite analysis for climate-critical applications - hydrology, flood mapping, land use change, vegetation dynamics, and long-term cryosphere and ecosystem monitoring.</p>
+          <p>Multi-temporal satellite analysis for hydrology, flood mapping, land use change, vegetation dynamics, and long-term cryosphere and ecosystem monitoring.</p>
         </div>
+
       </div>
     </div>
   </section>
@@ -829,13 +1255,13 @@
               Earth Observation &amp; Geospatial
             </div>
             <div class="skill-pills">
-              <span class="skill-pill">Google Earth Engine</span>
-              <span class="skill-pill">Sentinel-1 SAR</span>
-              <span class="skill-pill">Sentinel-2 Optical</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/googleearth/34A853" class="sp-icon" alt="" width="13" height="13" loading="lazy"> Google Earth Engine</span>
+              <span class="skill-pill"><svg class="sp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg> Sentinel-1 SAR</span>
+              <span class="skill-pill"><svg class="sp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10"/></svg> Sentinel-2 Optical</span>
               <span class="skill-pill">SNAP</span>
-              <span class="skill-pill">GDAL / Rasterio</span>
-              <span class="skill-pill">QGIS</span>
-              <span class="skill-pill">GeoPandas</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/gdal/5CAE58" class="sp-icon" alt="" width="13" height="13" loading="lazy" onerror="this.style.display='none'"> GDAL / Rasterio</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/qgis/589632" class="sp-icon" alt="" width="13" height="13" loading="lazy"> QGIS</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/pandas/ffffff" class="sp-icon" alt="" width="13" height="13" loading="lazy"> GeoPandas</span>
               <span class="skill-pill">Xarray</span>
             </div>
           </div>
@@ -846,14 +1272,14 @@
               Deep Learning &amp; Computer Vision
             </div>
             <div class="skill-pills">
-              <span class="skill-pill">PyTorch</span>
-              <span class="skill-pill">TensorFlow / Keras</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/pytorch/EE4C2C" class="sp-icon" alt="" width="13" height="13" loading="lazy"> PyTorch</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/tensorflow/FF6F00" class="sp-icon" alt="" width="13" height="13" loading="lazy"> TensorFlow / Keras</span>
               <span class="skill-pill">Vision Transformers</span>
               <span class="skill-pill">CNN Architectures</span>
               <span class="skill-pill">Semantic Segmentation</span>
               <span class="skill-pill">Object Detection</span>
-              <span class="skill-pill">OpenCV</span>
-              <span class="skill-pill">Hugging Face</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/opencv/5C3EE8" class="sp-icon" alt="" width="13" height="13" loading="lazy"> OpenCV</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/huggingface/FFD21E" class="sp-icon" alt="" width="13" height="13" loading="lazy"> Hugging Face</span>
             </div>
           </div>
 
@@ -863,13 +1289,13 @@
               Foundation Models &amp; MLOps
             </div>
             <div class="skill-pills">
-              <span class="skill-pill">SAM</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/meta/ffffff" class="sp-icon" alt="" width="13" height="13" loading="lazy"> SAM</span>
               <span class="skill-pill">DINOv2</span>
               <span class="skill-pill">SatMAE / Prithvi</span>
-              <span class="skill-pill">Weights &amp; Biases</span>
-              <span class="skill-pill">Docker</span>
-              <span class="skill-pill">Git &amp; GitHub</span>
-              <span class="skill-pill">Linux / HPC</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/weightsandbiases/FFBE00" class="sp-icon" alt="" width="13" height="13" loading="lazy"> Weights &amp; Biases</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/docker/2496ED" class="sp-icon" alt="" width="13" height="13" loading="lazy"> Docker</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/git/F05032" class="sp-icon" alt="" width="13" height="13" loading="lazy"> Git &amp; <img src="https://cdn.simpleicons.org/github/ffffff" class="sp-icon" alt="" width="13" height="13" loading="lazy"> GitHub</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/linux/FCC624" class="sp-icon" alt="" width="13" height="13" loading="lazy"> Linux / HPC</span>
             </div>
           </div>
 
@@ -879,13 +1305,13 @@
               Programming &amp; Data Science
             </div>
             <div class="skill-pills">
-              <span class="skill-pill">Python</span>
-              <span class="skill-pill">NumPy / Pandas</span>
-              <span class="skill-pill">scikit-learn</span>
-              <span class="skill-pill">MATLAB</span>
-              <span class="skill-pill">C++ / C#</span>
-              <span class="skill-pill">ROS</span>
-              <span class="skill-pill">LaTeX</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/python/3776AB" class="sp-icon" alt="" width="13" height="13" loading="lazy"> Python</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/numpy/ffffff" class="sp-icon" alt="" width="13" height="13" loading="lazy"> NumPy / <img src="https://cdn.simpleicons.org/pandas/ffffff" class="sp-icon" alt="" width="13" height="13" loading="lazy"> Pandas</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/scikitlearn/F7931E" class="sp-icon" alt="" width="13" height="13" loading="lazy"> scikit-learn</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/mathworks/0076A8" class="sp-icon" alt="" width="13" height="13" loading="lazy"> MATLAB</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/cplusplus/00599C" class="sp-icon" alt="" width="13" height="13" loading="lazy"> C++ / <img src="https://cdn.simpleicons.org/csharp/9B4993" class="sp-icon" alt="" width="13" height="13" loading="lazy"> C#</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/ros/ffffff" class="sp-icon" alt="" width="13" height="13" loading="lazy"> ROS</span>
+              <span class="skill-pill"><img src="https://cdn.simpleicons.org/latex/ffffff" class="sp-icon" alt="" width="13" height="13" loading="lazy"> LaTeX</span>
             </div>
           </div>
 
@@ -1141,5 +1567,107 @@
   </footer>
 
   <script src="js/main.js"></script>
+
+  <!-- Framer Motion (motion.dev) — vanilla JS ESM, no React needed -->
+  <script type="module">
+    import { animate, inView, stagger } from 'https://cdn.jsdelivr.net/npm/motion@latest/+esm';
+
+    var ease = [0.22, 1, 0.36, 1];
+
+    // Helper: reveal an element (adds CSS class so it persists after WAAPI ends)
+    function show(el) { el.classList.add('mo-visible'); }
+    function showAll(els) { els.forEach(show); }
+
+    // inView in motion passes the element directly to the callback (not the entry)
+    // Use (el.target || el) as a safe shim for both API variants
+    function target(el) { return el.target || el; }
+
+    // ── Stats bar: icons spring in, rows slide up ────────────────────
+    inView('.stats-bar', function(info) {
+      var bar = target(info);
+      showAll(bar.querySelectorAll('.stat-item'));
+      animate(bar.querySelectorAll('.stat-item'),
+        { opacity: [0, 1], y: [20, 0] },
+        { delay: stagger(0.10), duration: 0.50, easing: ease });
+      animate(bar.querySelectorAll('.stat-icon'),
+        { scale: [0.35, 1.14, 1], opacity: [0, 1] },
+        { delay: stagger(0.10), duration: 0.58, easing: ease });
+    }, { amount: 0.4 });
+
+
+
+    // ── Bento grid: cards pop in with scale ──────────────────────────
+    inView('.bento-grid', function(info) {
+      var grid  = target(info);
+      var cards = grid.querySelectorAll('.bento-card');
+      showAll(cards);
+      animate(cards,
+        { opacity: [0, 1], y: [32, 0], scale: [0.96, 1] },
+        { delay: stagger(0.08), duration: 0.52, easing: ease });
+    }, { amount: 0.05 });
+
+    // ── Projects grid: cards slide up in sequence ────────────────────
+    inView('.projects-grid', function(info) {
+      var grid  = target(info);
+      var cards = grid.querySelectorAll('.project-card-full');
+      showAll(cards);
+      animate(cards,
+        { opacity: [0, 1], y: [28, 0] },
+        { delay: stagger(0.07), duration: 0.50, easing: ease });
+    }, { amount: 0.05 });
+
+    // ── Research cards ───────────────────────────────────────────────
+    inView('.research-projects', function(info) {
+      var grid  = target(info);
+      var cards = grid.querySelectorAll('.project-card');
+      showAll(cards);
+      animate(cards,
+        { opacity: [0, 1], y: [24, 0] },
+        { delay: stagger(0.09), duration: 0.50, easing: ease });
+    }, { amount: 0.1 });
+
+    // ── Publication cards — each year group independently ────────────
+    document.querySelectorAll('.publications-list').forEach(function(list) {
+      inView(list, function() {
+        var cards = list.querySelectorAll('.publication-card');
+        showAll(cards);
+        animate(cards,
+          { opacity: [0, 1], x: [-16, 0] },
+          { delay: stagger(0.06), duration: 0.44, easing: ease });
+      }, { amount: 0.05 });
+    });
+
+    // ── About highlights slide in from right ─────────────────────────
+    inView('.about-highlights', function(info) {
+      var wrap  = target(info);
+      var cards = wrap.querySelectorAll('.highlight-card');
+      showAll(cards);
+      animate(cards,
+        { opacity: [0, 1], x: [22, 0] },
+        { delay: stagger(0.09), duration: 0.50, easing: ease });
+    }, { amount: 0.1 });
+
+    // ── Service blocks ───────────────────────────────────────────────
+    inView('.service-layout', function(info) {
+      var wrap   = target(info);
+      var blocks = wrap.querySelectorAll('.service-block');
+      showAll(blocks);
+      animate(blocks,
+        { opacity: [0, 1], y: [24, 0] },
+        { delay: stagger(0.12), duration: 0.52, easing: ease });
+    }, { amount: 0.1 });
+
+    // ── CV timeline entries ──────────────────────────────────────────
+    document.querySelectorAll('.cv-timeline').forEach(function(tl) {
+      inView(tl, function() {
+        var entries = tl.querySelectorAll('.cv-entry');
+        showAll(entries);
+        animate(entries,
+          { opacity: [0, 1], y: [18, 0] },
+          { delay: stagger(0.10), duration: 0.48, easing: ease });
+      }, { amount: 0.05 });
+    });
+
+  </script>
 </body>
 </html>
