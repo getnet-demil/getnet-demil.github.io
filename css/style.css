@@ -76,10 +76,10 @@
   --color-purple-light:  rgba(109, 40, 217, 0.10);
 
   /* Warm dark text */
-  --color-text:          #1a0d00;
-  --color-text-body:     #3d2a0a;
-  --color-text-muted:    #7c5a28;
-  --color-text-faint:    #b08a58;
+  --color-text:          #1d2430;
+  --color-text-body:     #334155;
+  --color-text-muted:    #5f6f83;
+  --color-text-faint:    #8b9bb0;
 
   /* Subtle borders on cream */
   --color-border:        rgba(0, 0, 0, 0.07);

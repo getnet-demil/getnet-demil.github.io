@@ -238,7 +238,7 @@
 
 // ---------- Theme Toggle ----------
 (function initTheme() {
-  var saved = localStorage.getItem('theme') || 'dark';
+  var saved = localStorage.getItem('theme') || 'light';
   document.documentElement.setAttribute('data-theme', saved);
 })();
 
