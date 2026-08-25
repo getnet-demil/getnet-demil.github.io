@@ -464,7 +464,7 @@
       <h2 class="section-title">News &amp; Blog</h2>
       <p class="section-subtitle">Research milestones, Medium stories, and a featured LinkedIn posts.</p>
 
-      <div class="news-tabs" role="tablist" aria-label="News and Blog">
+      <div class="news-tabs" role="tablist" aria-label="News, Blog, and Media">
         <button class="news-tab active" role="tab" aria-selected="true"
                 aria-controls="tab-news" id="tab-btn-news" data-tab="news">
           News
@@ -473,6 +473,10 @@
                 aria-controls="tab-blog" id="tab-btn-blog" data-tab="blog">
           Blog
           <span class="news-tab-badge" id="mediumBadge"></span>
+        </button>
+        <button class="news-tab" role="tab" aria-selected="false"
+                aria-controls="media" id="tab-btn-media" data-tab="media">
+          Media
         </button>
       </div>
 
@@ -486,13 +490,7 @@
           <div class="event-body">
             <p class="event-title">Data Fusion Contest Award Ceremony at IGARSS 2026</p>
             <p class="event-detail">2026 IEEE GRSS Data Fusion Contest on SAR Temporal Storytelling · Evaluated across 39 global sites · With Muhammad Farhan Humayun, Tomi Westerlund, Jukka Heikkonen, Mourad Oussalah</p>
-            <div class="event-media">
-              <div class="event-photos">
-                <a class="event-photo" href="images/news/datafusion-certificate.jpg" target="_blank" rel="noopener noreferrer"><img src="images/news/datafusion-certificate.jpg" alt="IEEE GRSS Data Fusion Contest winner certificate" loading="lazy" /></a>
-                <a class="event-photo" href="images/news/datafusion-stage.jpg" target="_blank" rel="noopener noreferrer"><img src="images/news/datafusion-stage.jpg" alt="Receiving the Data Fusion Contest award on stage at IGARSS 2026" loading="lazy" /></a>
-                <a class="event-photo" href="images/news/datafusion-group.jpg" target="_blank" rel="noopener noreferrer"><img src="images/news/datafusion-group.jpg" alt="Data Fusion Contest winning team on stage at IGARSS 2026" loading="lazy" /></a>
-              </div>
-            </div>
+            <a class="event-details-link" href="#media-datafusion">Details <span aria-hidden="true">→</span></a>
           </div>
         </div>
 
@@ -502,14 +500,7 @@
           <div class="event-body">
             <p class="event-title">Presented FiLM-GPNet at IGARSS 2026</p>
             <p class="event-detail">IEEE Geoscience and Remote Sensing Symposium · Washington, D.C.</p>
-            <div class="event-media">
-              <div class="event-video-wrap">
-                <iframe src="https://www.youtube.com/embed/9rPXrV7na0k?start=1" title="FiLM-GPNet presentation at IGARSS 2026" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              </div>
-              <div class="event-photos">
-                <a class="event-photo" href="images/news/igarss-backdrop.jpg" target="_blank" rel="noopener noreferrer"><img src="images/news/igarss-backdrop.jpg" alt="At IGARSS 2026 in Washington, D.C." loading="lazy" /></a>
-              </div>
-            </div>
+            <a class="event-details-link" href="#media-igarss">Details <span aria-hidden="true">→</span></a>
           </div>
         </div>
 
@@ -519,11 +510,7 @@
           <div class="event-body">
             <p class="event-title">Research Scholar at University of Florida TREC</p>
             <p class="event-detail">3-month research visit hosted by Dr. Haimanote Bayabil · Tropical Research and Education Center (TREC), Homestead, FL · CMVS International Research Visit Program</p>
-            <div class="event-media">
-              <div class="event-photos">
-                <a class="event-photo" href="images/news/uf-trec-welcome.jpg" target="_blank" rel="noopener noreferrer"><img src="images/news/uf-trec-welcome.jpg" alt="Welcomed at the University of Florida TREC, Homestead, FL" loading="lazy" /></a>
-              </div>
-            </div>
+            <a class="event-details-link" href="#media-trec">Details <span aria-hidden="true">→</span></a>
           </div>
         </div>
 
@@ -667,6 +654,43 @@
             <span class="spinner"></span> Loading posts from Medium…
           </div>
         </div>
+      </div>
+
+      <!-- Media panel -->
+      <div id="media" role="tabpanel" aria-labelledby="tab-btn-media" hidden>
+
+        <div class="media-entry" id="media-datafusion">
+          <span class="media-entry-index">Aug 2026 — Award</span>
+          <h3 class="media-entry-title">Data Fusion Contest Award Ceremony at IGARSS 2026</h3>
+          <p class="event-detail">2026 IEEE GRSS Data Fusion Contest on SAR Temporal Storytelling · Evaluated across 39 global sites · With Muhammad Farhan Humayun, Tomi Westerlund, Jukka Heikkonen, Mourad Oussalah</p>
+          <div class="event-photos">
+            <a class="event-photo" href="images/news/datafusion-certificate.jpg" target="_blank" rel="noopener noreferrer"><img src="images/news/datafusion-certificate.jpg" alt="IEEE GRSS Data Fusion Contest winner certificate" loading="lazy" /></a>
+            <a class="event-photo" href="images/news/datafusion-stage.jpg" target="_blank" rel="noopener noreferrer"><img src="images/news/datafusion-stage.jpg" alt="Receiving the Data Fusion Contest award on stage at IGARSS 2026" loading="lazy" /></a>
+            <a class="event-photo" href="images/news/datafusion-group.jpg" target="_blank" rel="noopener noreferrer"><img src="images/news/datafusion-group.jpg" alt="Data Fusion Contest winning team on stage at IGARSS 2026" loading="lazy" /></a>
+          </div>
+        </div>
+
+        <div class="media-entry" id="media-igarss">
+          <span class="media-entry-index">Aug 2026 — Presentation</span>
+          <h3 class="media-entry-title">Presented FiLM-GPNet at IGARSS 2026</h3>
+          <p class="event-detail">IEEE Geoscience and Remote Sensing Symposium · Washington, D.C.</p>
+          <div class="event-video-wrap">
+            <iframe src="https://www.youtube.com/embed/9rPXrV7na0k?start=1" title="FiLM-GPNet presentation at IGARSS 2026" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="event-photos">
+            <a class="event-photo" href="images/news/igarss-backdrop.jpg" target="_blank" rel="noopener noreferrer"><img src="images/news/igarss-backdrop.jpg" alt="At IGARSS 2026 in Washington, D.C." loading="lazy" /></a>
+          </div>
+        </div>
+
+        <div class="media-entry" id="media-trec">
+          <span class="media-entry-index">Aug 2026 — Position</span>
+          <h3 class="media-entry-title">Research Scholar at University of Florida TREC</h3>
+          <p class="event-detail">3-month research visit hosted by Dr. Haimanote Bayabil · Tropical Research and Education Center (TREC), Homestead, FL · CMVS International Research Visit Program</p>
+          <div class="event-photos">
+            <a class="event-photo" href="images/news/uf-trec-welcome.jpg" target="_blank" rel="noopener noreferrer"><img src="images/news/uf-trec-welcome.jpg" alt="Welcomed at the University of Florida TREC, Homestead, FL" loading="lazy" /></a>
+          </div>
+        </div>
+
       </div>
 
     </div>

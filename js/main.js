@@ -192,9 +192,34 @@
     });
   }
 
-  // Auto-activate Blog tab on direct page load with #blog hash
-  if (window.location.hash === '#blog') {
+  // News "Details" links — activate Media tab and scroll to the matching entry
+  document.querySelectorAll('.event-details-link').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = link.getAttribute('href').slice(1);
+      var target = document.getElementById(targetId);
+      activateTab('media');
+      history.replaceState(null, '', '#' + targetId);
+      if (target) {
+        requestAnimationFrame(function () {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+    });
+  });
+
+  // Auto-activate on direct page load via hash (#blog, #media, or #media-<entry>)
+  var initialHash = window.location.hash;
+  if (initialHash === '#blog') {
     activateTab('blog');
+  } else if (initialHash === '#media' || initialHash.indexOf('#media-') === 0) {
+    activateTab('media');
+    var initialTarget = document.getElementById(initialHash.slice(1));
+    if (initialTarget) {
+      requestAnimationFrame(function () {
+        initialTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
   }
 })();
 
