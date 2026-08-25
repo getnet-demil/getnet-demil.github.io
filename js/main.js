@@ -342,7 +342,7 @@ document.querySelectorAll('.cv-entry').forEach(function (el, i) {
 // ---------- Fade-in on scroll ----------
 var fadeEls = document.querySelectorAll(
   '.highlight-card, .interest-card, .publication-card, .contact-card, ' +
-  '.project-card, .project-card-full, .news-card, .service-block, .skill-item'
+  '.project-card, .project-card-full, .news-card, .service-block, .skill-item, .pillar'
 );
 
 var fadeObserverInstance = new IntersectionObserver(function (entries) {
@@ -611,7 +611,7 @@ updateActiveNavLink();
 // ---------- 3D Tilt on project cards ----------
 (function initCardTilt() {
   var TILT = 7;
-  document.querySelectorAll('.project-card-full, .project-card').forEach(function (card) {
+  document.querySelectorAll('.project-card').forEach(function (card) {
     card.addEventListener('mousemove', function (e) {
       var rect = card.getBoundingClientRect();
       var x = (e.clientX - rect.left) / rect.width - 0.5;
