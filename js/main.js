@@ -1,6 +1,6 @@
 /* =====================================================
    main.js – Portfolio interactivity
-   Arctic Aurora Academic Portfolio — Getnet Demil Jenberia
+   Arctic Aurora Academic Portfolio - Getnet Demil Jenberia
    ===================================================== */
 
 // ---------- LinkedIn Posts Feed ----------
@@ -181,7 +181,7 @@
     });
   });
 
-  // Navbar "Blog" link — activate tab and scroll to section
+  // Navbar "Blog" link - activate tab and scroll to section
   var navBlogLink = document.querySelector('.nav-links a[href="#blog"]');
   if (navBlogLink) {
     navBlogLink.addEventListener('click', function (e) {
@@ -192,7 +192,7 @@
     });
   }
 
-  // News "Details" links — activate Media tab and scroll to the matching entry
+  // News "Details" links - activate Media tab and scroll to the matching entry
   document.querySelectorAll('.event-details-link').forEach(function (link) {
     link.addEventListener('click', function (e) {
       e.preventDefault();
@@ -414,7 +414,7 @@ document.querySelectorAll('.cv-entry').forEach(function (el, i) {
 // ---------- Fade-in on scroll ----------
 var fadeEls = document.querySelectorAll(
   '.highlight-card, .interest-card, .publication-card, .contact-card, ' +
-  '.project-card, .project-card-full, .news-card, .service-block, .skill-item, .pillar'
+  '.rp-item, .pj-item, .news-card, .service-block, .skill-item'
 );
 
 var fadeObserverInstance = new IntersectionObserver(function (entries) {
@@ -666,9 +666,9 @@ updateActiveNavLink();
   var CARD_STAGGER_DELAY = 90; // ms between each card (matches CSS nth-child fallback)
   var groups = [
     { container: '.about-highlights',  items: '.highlight-card' },
-    { container: '.interests-grid',    items: '.interest-card' },
-    { container: '.projects-grid',     items: '.project-card-full' },
-    { container: '.research-projects', items: '.project-card' },
+    { container: '.rp-list',           items: '.rp-item' },
+    { container: '.rp-interests',      items: '.rp-interest' },
+    { container: '.pj-list',           items: '.pj-item' },
     { container: '.service-layout',    items: '.service-block' }
   ];
   groups.forEach(function (group) {
@@ -676,26 +676,6 @@ updateActiveNavLink();
     if (!container) return;
     container.querySelectorAll(group.items).forEach(function (card, i) {
       card.style.transitionDelay = (i * CARD_STAGGER_DELAY) + 'ms';
-    });
-  });
-})();
-
-// ---------- 3D Tilt on project cards ----------
-(function initCardTilt() {
-  var TILT = 7;
-  document.querySelectorAll('.project-card').forEach(function (card) {
-    card.addEventListener('mousemove', function (e) {
-      var rect = card.getBoundingClientRect();
-      var x = (e.clientX - rect.left) / rect.width - 0.5;
-      var y = (e.clientY - rect.top)  / rect.height - 0.5;
-      card.style.transition = 'transform 0.12s ease, box-shadow 0.12s ease, border-color 0.2s ease, background 0.2s ease';
-      card.style.transform  =
-        'perspective(900px) rotateY(' + (x * TILT) + 'deg) rotateX(' + (-y * TILT) + 'deg) translateZ(6px)';
-    });
-    card.addEventListener('mouseleave', function () {
-      card.style.transition = 'transform 0.45s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease, border-color 0.2s ease, background 0.2s ease';
-      card.style.transform  = '';
-      setTimeout(function () { card.style.transition = ''; }, 460);
     });
   });
 })();
