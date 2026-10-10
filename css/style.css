@@ -371,7 +371,7 @@ button { cursor: pointer; font-family: var(--font-sans); }
 .nav-links a {
   display: block;
   padding: 6px 11px;
-  font-size: 0.855rem;
+  font-size: 0.9rem;
   font-weight: 500;
   color: var(--color-text-muted);
   border-radius: var(--radius-sm);
@@ -593,8 +593,9 @@ button { cursor: pointer; font-family: var(--font-sans); }
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.78rem;
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
   letter-spacing: 0.13em;
   text-transform: uppercase;
   color: var(--color-primary);
@@ -620,6 +621,11 @@ button { cursor: pointer; font-family: var(--font-sans); }
 }
 .hero-name-accent {
   color: var(--color-primary);
+  font-style: italic;
+}
+.hero-title em {
+  font-style: italic;
+  font-weight: 500;
 }
 
 .hero-affiliation {
@@ -2394,8 +2400,8 @@ button { cursor: pointer; font-family: var(--font-sans); }
   align-items: center;
   gap: 10px;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 400;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-primary);
@@ -3305,4 +3311,21 @@ button { cursor: pointer; font-family: var(--font-sans); }
   .rp-interest h4 { font-size: 1.5rem; }
   .rp-item-desc,
   .pj-desc { font-size: 1.02rem; }
+}
+
+/* =====================================================
+   TYPOGRAPHY ACCENTS: drop cap and italic word
+   ===================================================== */
+.about-text p:first-child::first-letter {
+  font-family: var(--font-display);
+  font-weight: 700;
+  float: left;
+  font-size: 5em;
+  line-height: 0.82;
+  padding: 0.08em 0.1em 0 0;
+  color: var(--color-primary);
+}
+.section-title em {
+  font-style: italic;
+  font-weight: 500;
 }
