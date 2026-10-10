@@ -101,7 +101,7 @@
 
 /* ---------- Fonts ---------- */
 :root {
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
   --font-sans:    'Inter', system-ui, sans-serif;
   --font-mono:    'JetBrains Mono', 'Fira Code', Consolas, monospace;
 
@@ -617,7 +617,7 @@ button { cursor: pointer; font-family: var(--font-sans); }
   line-height: 1.05;
   color: var(--color-text);
   margin-bottom: 18px;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.02em;
 }
 .hero-name-accent {
   color: var(--color-primary);
@@ -3146,7 +3146,7 @@ button { cursor: pointer; font-family: var(--font-sans); }
   font-size: clamp(2.2rem, 5vw, 4.5rem);
   font-weight: 700;
   line-height: 1.02;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.02em;
   color: var(--color-text);
   margin: 0 0 22px;
   transition: color var(--transition);
@@ -3247,7 +3247,7 @@ button { cursor: pointer; font-family: var(--font-sans); }
   overflow-wrap: break-word;
   font-weight: 700;
   line-height: 1.02;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.02em;
   color: var(--color-text);
   margin: 0;
   transition: color var(--transition);
