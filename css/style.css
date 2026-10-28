@@ -1416,6 +1416,23 @@ button { cursor: pointer; font-family: var(--font-sans); }
 }
 .pub-venue em { font-style: italic; }
 
+/* ---------- Publications listing text — 50% larger ---------- */
+.pub-search { font-size: 1.3125rem; }
+.filter-btn { font-size: 1.2rem; }
+.pub-year-label { font-size: 1.17rem; }
+.pub-badge { font-size: 1.05rem; }
+.pub-quality { font-size: 0.99rem; }
+.pub-cites { font-size: 1.08rem; }
+.pub-title { font-size: 1.4325rem; }
+.pub-authors { font-size: 1.2675rem; }
+.pub-venue { font-size: 1.23rem; }
+#publications .subsection-title { font-size: 1.95rem; }
+#publications .project-index { font-size: 1.08rem; }
+#publications .project-row-title { font-size: clamp(2.25rem, 3.6vw, 3rem); }
+#publications .project-row-desc { font-size: 1.47rem; }
+#publications .project-row-meta { font-size: 1.11rem; }
+#publications .project-row-link { font-size: 1.275rem; }
+
 .pub-no-results {
   display: none;
   text-align: center;
