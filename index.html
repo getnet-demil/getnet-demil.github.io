@@ -945,7 +945,7 @@
       <div class="pub-image-cards">
         <div class="pub-image-card">
           <div class="pub-image-card-figure">
-            <img src="images/publications/xfuse-architecture.png" alt="XFuse architecture: multi-sensor SAR and optical feature extraction, fusion module, and snow cover prediction pipeline" loading="lazy" />
+            <img class="js-zoom" src="images/publications/xfuse-architecture.png" alt="XFuse architecture: multi-sensor SAR and optical feature extraction, fusion module, and snow cover prediction pipeline" loading="lazy" />
           </div>
           <span class="project-index">01 · Snow Hydrology · 2026</span>
           <h3 class="project-row-title">XFuse</h3>
@@ -956,7 +956,7 @@
 
         <div class="pub-image-card">
           <div class="pub-image-card-figure">
-            <img src="images/publications/mdeeplab-architecture.png" alt="mDeepLabV3+ architecture: DCNN encoder with atrous spatial pyramid pooling and decoder for snow-cloud segmentation" loading="lazy" />
+            <img class="js-zoom" src="images/publications/mdeeplab-architecture.png" alt="mDeepLabV3+ architecture: DCNN encoder with atrous spatial pyramid pooling and decoder for snow-cloud segmentation" loading="lazy" />
           </div>
           <span class="project-index">02 · Snow Hydrology · 2025</span>
           <h3 class="project-row-title">mDeepLabV3+</h3>
@@ -967,7 +967,7 @@
 
         <div class="pub-image-card">
           <div class="pub-image-card-figure">
-            <img src="images/publications/filmgpnet-architecture.png" alt="FiLM-GPNet architecture: geometry-conditioned FiLM modulation inside a U-Net encoder-decoder, with denoised interferogram and uncertainty map outputs" loading="lazy" />
+            <img class="js-zoom" src="images/publications/filmgpnet-architecture.png" alt="FiLM-GPNet architecture: geometry-conditioned FiLM modulation inside a U-Net encoder-decoder, with denoised interferogram and uncertainty map outputs" loading="lazy" />
           </div>
           <span class="project-index">03 · InSAR · 2026</span>
           <h3 class="project-row-title">FiLM-GPNet</h3>
@@ -1546,6 +1546,14 @@
       <p class="footer-copy-center">&copy; <span id="year"></span> Getnet Demil Jenberia · Doctoral Researcher, University of Oulu, Finland</p>
     </div>
   </footer>
+
+  <!-- ========== IMAGE LIGHTBOX ========== -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" type="button" aria-label="Close zoomed image">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+  </div>
 
   <script src="js/main.js"></script>
 
