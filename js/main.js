@@ -91,8 +91,10 @@
   var container = document.getElementById('mediumFeed');
   if (!container) return;
 
-  var RSS = 'https://medium.com/feed/@getnetdemil';
-  var API = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(RSS) + '&count=10';
+  // Static snapshot committed by .github/workflows/update-medium-feed.yml
+  // (fetched at build time, so the page never depends on a third-party
+  // CORS/RSS proxy at load time).
+  var FEED_URL = 'data/medium-posts.json';
 
   function stripTags(str) { return (str || '').replace(/<[^>]+>/g, ''); }
 
@@ -141,10 +143,10 @@
     });
   }
 
-  fetch(API)
+  fetch(FEED_URL)
     .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
     .then(function (data) {
-      if (data.status === 'ok' && data.items && data.items.length) {
+      if (data.items && data.items.length) {
         render(data.items);
       } else {
         throw new Error('No items');
