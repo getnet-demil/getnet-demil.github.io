@@ -1664,8 +1664,38 @@ button { cursor: pointer; font-family: var(--font-sans); }
 }
 .project-card-full:hover { border-top-color: var(--color-primary); }
 
-.pub-featured .project-card-full:last-child { padding-bottom: 0; }
-.pub-featured { margin-bottom: 8px; }
+/* ---------- Publications — image-text cards ---------- */
+.pub-image-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  margin-bottom: 8px;
+}
+.pub-image-card {
+  display: flex;
+  flex-direction: column;
+}
+.pub-image-card-figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 190px;
+  margin-bottom: 18px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-alt);
+  overflow: hidden;
+}
+.pub-image-card-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.pub-image-card .project-row-title,
+.pub-image-card .project-row-desc,
+.pub-image-card .project-row-meta { margin-bottom: 10px; }
+.pub-image-card .project-index { margin-bottom: 6px; display: block; }
+.pub-image-card .project-row-link { margin-top: 2px; }
 
 .project-row-top {
   display: flex;
