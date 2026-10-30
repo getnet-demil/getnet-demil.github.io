@@ -153,14 +153,40 @@
       body: JSON.stringify({ message: text, history: history.slice(0, -1) })
     })
       .then(function (r) {
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        return r.json();
-      })
-      .then(function (data) {
-        removeTyping();
-        var reply = data && data.reply ? data.reply : "Sorry, I couldn't come up with an answer to that.";
-        addMessage('bot', formatReply(reply), true);
-        history.push({ role: 'model', text: reply });
+        if (!r.ok || !r.body) throw new Error('HTTP ' + r.status);
+
+        var reader = r.body.getReader();
+        var decoder = new TextDecoder();
+        var fullText = '';
+        var bubble = null;
+
+        function pump() {
+          return reader.read().then(function (result) {
+            if (result.done) {
+              if (!fullText.trim()) {
+                removeTyping();
+                addMessage('bot', "Sorry, I couldn't come up with an answer to that.");
+              } else {
+                history.push({ role: 'model', text: fullText });
+              }
+              return;
+            }
+            var chunk = decoder.decode(result.value, { stream: true });
+            if (chunk) {
+              fullText += chunk;
+              if (!bubble) {
+                removeTyping();
+                bubble = addMessage('bot', formatReply(fullText), true);
+              } else {
+                bubble.querySelector('.chatbot-bubble').innerHTML = formatReply(fullText);
+                scrollToBottom();
+              }
+            }
+            return pump();
+          });
+        }
+
+        return pump();
       })
       .catch(function () {
         removeTyping();
