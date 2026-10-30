@@ -5,8 +5,7 @@
    ===================================================== */
 
 (function initChatbot() {
-  // Set after the Cloudflare Worker is deployed (see worker/README.md).
-  var CHAT_API_URL = '';
+  var CHAT_API_URL = 'https://ask-about-getnet.getnetd24.workers.dev';
 
   var fab = document.getElementById('chatbotFab');
   var panel = document.getElementById('chatbotPanel');
