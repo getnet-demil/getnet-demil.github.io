@@ -126,23 +126,38 @@ export default {
       ':streamGenerateContent?alt=sse&key=' +
       env.GEMINI_API_KEY;
 
-    let geminiRes;
-    try {
-      geminiRes = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-          contents,
-          generationConfig: { temperature: 0.4, maxOutputTokens: 800 },
-        }),
-      });
-    } catch (e) {
-      return json({ error: 'Upstream request failed' }, 502, headers);
-    }
+    // Gemini's free tier occasionally returns 429 (rate limited) or 503
+    // (model overloaded) — both are usually transient, so retry a couple of
+    // times with a short backoff before giving up.
+    const MAX_ATTEMPTS = 3;
+    const RETRYABLE_STATUSES = [429, 503];
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-    if (!geminiRes.ok || !geminiRes.body) {
-      return json({ error: 'Upstream error', status: geminiRes.status }, 502, headers);
+    let geminiRes;
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+      try {
+        geminiRes = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+            contents,
+            generationConfig: { temperature: 0.4, maxOutputTokens: 800 },
+          }),
+        });
+      } catch (e) {
+        if (attempt === MAX_ATTEMPTS) return json({ error: 'Upstream request failed' }, 502, headers);
+        await sleep(300 * attempt);
+        continue;
+      }
+
+      if (geminiRes.ok && geminiRes.body) break;
+
+      const retryable = RETRYABLE_STATUSES.indexOf(geminiRes.status) !== -1;
+      if (!retryable || attempt === MAX_ATTEMPTS) {
+        return json({ error: 'Upstream error', status: geminiRes.status }, 502, headers);
+      }
+      await sleep(300 * attempt);
     }
 
     // Gemini streams Server-Sent Events, one JSON candidate-chunk per `data:`
