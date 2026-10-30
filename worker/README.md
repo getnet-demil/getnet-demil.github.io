@@ -36,7 +36,7 @@ below happens in two web dashboards.
 3. Save and redeploy if prompted.
 
 (Optional) You can also add a plain variable `GEMINI_MODEL` if you ever want
-to point at a different Gemini model later — it defaults to `gemini-2.0-flash`
+to point at a different Gemini model later — it defaults to `gemini-flash-latest`
 if you don't set one.
 
 ## 4. Send me the Worker URL

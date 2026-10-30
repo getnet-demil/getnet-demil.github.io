@@ -7,4 +7,4 @@ compatibility_date = "2026-01-01"
 #   GEMINI_API_KEY   (required) — your free Gemini API key
 #
 # Optional plain variable (can also be set via the dashboard):
-#   GEMINI_MODEL     — defaults to "gemini-2.0-flash" if unset
+#   GEMINI_MODEL     — defaults to "gemini-flash-latest" if unset

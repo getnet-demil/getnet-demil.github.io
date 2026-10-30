@@ -119,7 +119,7 @@ export default {
 
     const contents = [...trimmedHistory, { role: 'user', parts: [{ text: message }] }];
 
-    const model = env.GEMINI_MODEL || 'gemini-2.0-flash';
+    const model = env.GEMINI_MODEL || 'gemini-flash-latest';
     const apiUrl =
       'https://generativelanguage.googleapis.com/v1beta/models/' +
       model +
