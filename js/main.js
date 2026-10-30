@@ -3,90 +3,6 @@
    Arctic Aurora Academic Portfolio - Getnet Demil Jenberia
    ===================================================== */
 
-// ---------- LinkedIn Posts Feed ----------
-(function initLinkedInFeed() {
-  var widget = document.getElementById('linkedinPostWidget');
-  if (!widget) return;
-
-  // ---------------------------------------------------------------
-  // Add your LinkedIn post URLs here (one per line).
-  // To get a URL: open a LinkedIn post -> click "..." -> "Copy link to post"
-  // The URL looks like: https://www.linkedin.com/feed/update/urn:li:activity:XXXXXXXXXX/
-  // The activity ID is extracted automatically from whatever URL format you paste.
-  // ---------------------------------------------------------------
-  var LINKEDIN_POST_URLS = [
-    'https://www.linkedin.com/feed/update/urn:li:activity:7392162365573660672/'
-    // Add more post URLs here, one per line:
-    // 'https://www.linkedin.com/feed/update/urn:li:activity:XXXXXXXXXX/'
-  ];
-
-  var profileActivityUrl = 'https://www.linkedin.com/in/getnetdemil/recent-activity/all/';
-
-  function extractActivityId(url) {
-    var m = url.match(/activity[:\-](\d+)/);
-    return m ? m[1] : null;
-  }
-
-  function embedUrl(activityId) {
-    return 'https://www.linkedin.com/embed/feed/update/urn:li:activity:' + activityId;
-  }
-
-  function render() {
-    var ids = LINKEDIN_POST_URLS
-      .map(extractActivityId)
-      .filter(Boolean);
-
-    widget.innerHTML = '';
-
-    var header = document.createElement('div');
-    header.className = 'linkedin-widget-header';
-    var title = document.createElement('h3');
-    title.className = 'linkedin-widget-title';
-    title.textContent = 'LinkedIn Posts';
-    header.appendChild(title);
-    var viewAll = document.createElement('a');
-    viewAll.className = 'linkedin-widget-link';
-    viewAll.href = profileActivityUrl;
-    viewAll.target = '_blank';
-    viewAll.rel = 'noopener noreferrer';
-    viewAll.textContent = 'View all \u2192';
-    header.appendChild(viewAll);
-    widget.appendChild(header);
-
-    if (!ids.length) {
-      var empty = document.createElement('p');
-      empty.className = 'linkedin-widget-fallback';
-      empty.innerHTML = 'No posts configured yet. ' +
-        '<a href="' + profileActivityUrl + '" target="_blank" rel="noopener noreferrer">Visit LinkedIn profile \u2192</a>';
-      widget.appendChild(empty);
-      return;
-    }
-
-    var grid = document.createElement('div');
-    grid.className = 'linkedin-embeds-grid';
-
-    ids.forEach(function (id) {
-      var wrapper = document.createElement('div');
-      wrapper.className = 'linkedin-embed-wrapper';
-
-      var iframe = document.createElement('iframe');
-      iframe.src = embedUrl(id);
-      iframe.setAttribute('frameborder', '0');
-      iframe.setAttribute('allowfullscreen', '');
-      iframe.setAttribute('title', 'LinkedIn post');
-      iframe.setAttribute('loading', 'lazy');
-      iframe.className = 'linkedin-embed-frame';
-
-      wrapper.appendChild(iframe);
-      grid.appendChild(wrapper);
-    });
-
-    widget.appendChild(grid);
-  }
-
-  render();
-})();
-
 (function initMediumFeed() {
   var container = document.getElementById('mediumFeed');
   if (!container) return;
@@ -100,7 +16,11 @@
 
   function truncate(str, max) {
     var plain = stripTags(str);
-    return plain.length > max ? plain.slice(0, max).trimEnd() + '\u2026' : plain;
+    if (plain.length <= max) return plain;
+    var cut = plain.slice(0, max);
+    var lastSpace = cut.lastIndexOf(' ');
+    if (lastSpace > 0) cut = cut.slice(0, lastSpace);
+    return cut.trimEnd() + '\u2026';
   }
 
   function formatDate(dateStr) {
@@ -114,25 +34,33 @@
     return Math.max(1, Math.round(words / 200)) + ' min read';
   }
 
+  function firstImage(html) {
+    var m = (html || '').match(/<img[^>]+src="([^"]+)"/);
+    return m ? m[1] : null;
+  }
+
   function render(posts) {
     var badge = document.getElementById('mediumBadge');
     if (badge) badge.textContent = posts.length;
 
     var html = posts.map(function (p) {
-      return '<article class="medium-card fade-in">' +
-        '<div class="medium-card-meta">' +
-          '<time class="medium-date">' + formatDate(p.pubDate) + '</time>' +
-          '<span class="medium-read">' + readTime(p.content || p.description) + '</span>' +
+      var img = firstImage(p.content);
+      var thumb = img
+        ? '<img src="' + img + '" alt="" loading="lazy">'
+        : '<span class="medium-card-thumb-mono">M</span>';
+
+      return '<a class="medium-card fade-in" href="' + p.link + '" target="_blank" rel="noopener noreferrer">' +
+        '<div class="medium-card-thumb' + (img ? '' : ' medium-card-thumb-placeholder') + '">' + thumb + '</div>' +
+        '<div class="medium-card-body">' +
+          '<div class="medium-card-meta">' +
+            '<time class="medium-date">' + formatDate(p.pubDate) + '</time>' +
+            '<span class="medium-read">' + readTime(p.content || p.description) + '</span>' +
+          '</div>' +
+          '<h3 class="medium-title">' + (p.title || 'Untitled') + '</h3>' +
+          '<p class="medium-excerpt">' + truncate(p.description, 140) + '</p>' +
+          '<span class="medium-read-link">Read on Medium \u2192</span>' +
         '</div>' +
-        '<h3 class="medium-title">' +
-          '<a href="' + p.link + '" target="_blank" rel="noopener noreferrer">' +
-          (p.title || 'Untitled') + '</a>' +
-        '</h3>' +
-        '<p class="medium-excerpt">' + truncate(p.description, 140) + '</p>' +
-        '<a class="medium-read-link" href="' + p.link + '" target="_blank" rel="noopener noreferrer">' +
-          'Read on Medium \u2192' +
-        '</a>' +
-      '</article>';
+      '</a>';
     }).join('');
 
     container.innerHTML = html;
@@ -140,6 +68,15 @@
     // Trigger fade-in for newly rendered cards
     container.querySelectorAll('.fade-in').forEach(function (el) {
       fadeObserverInstance && fadeObserverInstance.observe(el);
+    });
+
+    // Swap to the placeholder monogram if a hotlinked thumbnail fails to load
+    container.querySelectorAll('.medium-card-thumb img').forEach(function (img) {
+      img.addEventListener('error', function () {
+        var thumb = img.closest('.medium-card-thumb');
+        thumb.classList.add('medium-card-thumb-placeholder');
+        thumb.innerHTML = '<span class="medium-card-thumb-mono">M</span>';
+      });
     });
   }
 
