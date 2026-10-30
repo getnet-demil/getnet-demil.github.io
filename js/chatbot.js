@@ -164,6 +164,7 @@
           return reader.read().then(function (result) {
             if (result.done) {
               if (!fullText.trim()) {
+                history.pop(); // drop the unanswered user turn so it isn't replayed as stale context
                 removeTyping();
                 addMessage('bot', "Sorry, I couldn't come up with an answer to that.");
               } else {
@@ -189,6 +190,8 @@
         return pump();
       })
       .catch(function () {
+        var last = history[history.length - 1];
+        if (last && last.role === 'user') history.pop(); // drop the unanswered user turn
         removeTyping();
         addMessage(
           'bot',
