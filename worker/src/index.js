@@ -25,6 +25,7 @@ His academic path spans six countries: BSc in Electrical Engineering (Electronic
 
 ## Selected Projects
 - CrossFuse (Active) — CNN-Transformer fusion of Sentinel-1/2 for snow cover & SWE estimation.
+- Soil Moisture Scale-Transfer Study (Active) — from his University of Florida IFAS TREC research visit (Homestead, FL, Aug–Oct 2026): evaluated whether Sentinel-2 and SPOT 6/7 satellite imagery can retrieve root-zone soil moisture in a 32-plot precision-irrigation experiment, using a four-tier validation pipeline (ground probes, UAV multispectral/thermal imagery, high-resolution satellite, Sentinel-2) across 3 growing seasons and 334K+ sensor readings.
 - mDeepLabV3+ (Published) — snow-cloud segmentation in Sentinel-2 imagery; published in Earth Science Informatics (Springer).
 - Climate Social Media Monitor (Published, SIGIR 2024) — NLP pipeline detecting floods/droughts/extreme weather from social media.
 - HydroImaging Workshop @ ICIP 2026 (Upcoming) — co-organised workshop, Tampere, Finland, Sep 2026.
