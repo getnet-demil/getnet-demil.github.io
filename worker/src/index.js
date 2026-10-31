@@ -34,7 +34,7 @@ His academic path spans six countries: BSc in Electrical Engineering (Electronic
 ## Publications (8 total, 50+ citations)
 - XFuse: Multi-sensor CNN transformer fusion with cross attention and quality-aware curriculum learning for high-resolution fractional snow cover mapping — ISPRS Journal of Photogrammetry and Remote Sensing, Elsevier, 2026.
 - FiLM-GPNet: Geometry-Aware Pseudo-Supervised Phase Restoration with Zero-Shot Generalization for Large Temporal InSAR Stacks — IGARSS 2026.
-- HYDRO-DATASET: A Multi-Modal Open-Source Pipeline for Nordic Hydrological Research and Foundation Model Benchmarking — ICIP 2026 Satellite Workshop.
+- HYDRO-DATASET: A Multi-Modal Open-Source Pipeline for Nordic Hydrological Research and Foundation Model Benchmarking — ICIP 2026 Satellite Workshop. Companion dataset published on Zenodo (DOI: 10.5281/zenodo.20287300).
 - Advances in image-based estimation of snow variables: A systematic literature review on recent studies — Journal of Hydrology, Elsevier, 2025.
 - Seeing through the clouds: enhanced snow and cloud segmentation in Sentinel-2 imagery with mDeepLabV3+ — Earth Science Informatics, Springer, 2025.
 - AI-based Approach in Early Warning Systems: Focus on Emergency Communication Ecosystem and Citizen Participation in Nordic Countries — book chapter / arXiv preprint, 2025.
