@@ -144,8 +144,6 @@
     text = text.trim();
     if (!text || sending) return;
 
-    suggestionsEl.innerHTML = '';
-
     if (Object.prototype.hasOwnProperty.call(CANNED_ANSWERS, text)) {
       var canned = CANNED_ANSWERS[text];
       addMessage('user', text);
