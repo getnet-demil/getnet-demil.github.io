@@ -3513,7 +3513,7 @@ button { cursor: pointer; font-family: var(--font-sans); }
 .pj-status {
   display: inline-block;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.576rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -3526,7 +3526,7 @@ button { cursor: pointer; font-family: var(--font-sans); }
 .pj-status--award     { color: #e8b84a; }
 .pj-title {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 3.8vw, 3.6rem);
+  font-size: clamp(1.76rem, 3.04vw, 2.88rem);
   overflow-wrap: break-word;
   font-weight: 700;
   line-height: 1.02;
@@ -3536,6 +3536,13 @@ button { cursor: pointer; font-family: var(--font-sans); }
   transition: color var(--transition);
 }
 .pj-item:hover .pj-title { color: var(--color-primary); }
+.pj-figure {
+  display: block;
+  width: 100%;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
 .pj-body {
   display: flex;
   flex-direction: column;
@@ -3543,13 +3550,14 @@ button { cursor: pointer; font-family: var(--font-sans); }
   gap: 0;
   min-width: 0;
 }
-.pj-body .pj-desc { margin-bottom: 24px; }
+.pj-body .pj-desc { margin-bottom: 24px; font-size: clamp(0.84rem, 1.12vw, 1.04rem); }
+.pj-body .rp-tags li { font-size: 0.66rem; }
 .pj-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   margin-top: 26px;
-  font-size: 1.05rem;
+  font-size: 0.84rem;
   font-weight: 700;
   color: var(--color-primary);
   text-decoration: none;
@@ -3559,7 +3567,7 @@ button { cursor: pointer; font-family: var(--font-sans); }
 .pj-link:hover { color: var(--color-accent); text-decoration: none; }
 .pj-note {
   margin: 26px 0 0;
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--color-text-muted);
 }
@@ -3594,6 +3602,8 @@ button { cursor: pointer; font-family: var(--font-sans); }
   .rp-interest h4 { font-size: 1.5rem; }
   .rp-item-desc,
   .pj-desc { font-size: 1.02rem; }
+  .pj-title { font-size: clamp(1.52rem, 7.2vw, 2.08rem); }
+  .pj-body .pj-desc { font-size: 0.816rem; }
 }
 
 /* =====================================================
