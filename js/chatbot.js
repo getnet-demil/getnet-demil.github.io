@@ -23,6 +23,21 @@
     'How can I contact him?'
   ];
 
+  // Instant, pre-written answers for the fixed suggestion chips above, so
+  // the most common questions don't wait on a round-trip to Gemini. Must be
+  // kept in sync with worker/src/index.js's SYSTEM_PROMPT if the underlying
+  // facts change. Free-form questions still go through the live API.
+  var CANNED_ANSWERS = {
+    "What's Getnet's PhD research about?":
+      "Getnet's PhD research sits at the intersection of Geospatial AI, remote sensing, and computer vision at the University of Oulu, Finland. He builds deep learning and multimodal fusion frameworks that combine SAR, optical, multispectral, and reanalysis data to monitor the changing planet — mainly snow hydrology. Key work includes **CrossFuse** (a CNN-Transformer fusing Sentinel-1 SAR and Sentinel-2 optical imagery for snow cover and snow water equivalent estimation, published as \"XFuse\") and **mDeepLabV3+** (snow-cloud segmentation in Sentinel-2 imagery).",
+    'What has he published?':
+      "Getnet has 8 publications with 50+ citations, spanning journals, conferences, and preprints in AI, remote sensing, and hydrology:\n- **XFuse** — ISPRS Journal of Photogrammetry and Remote Sensing, 2026\n- **FiLM-GPNet** — IGARSS 2026\n- **HYDRO-DATASET** — ICIP 2026 Satellite Workshop (+ Zenodo dataset)\n- A systematic review on image-based snow estimation — Journal of Hydrology, 2025\n- **mDeepLabV3+** paper — Earth Science Informatics, 2025\n- A book chapter on AI-based early warning systems — 2025\n- A Nordic AI Climate Workshop paper — 2025\n- A SIGIR 2024 workshop paper on social media climate monitoring\n\nFull list with DOIs is in the Publications section on this page.",
+    'What projects has he built?':
+      "Getnet has built several projects across geospatial AI and beyond:\n- **CrossFuse** — CNN-Transformer fusion of Sentinel-1/2 for snow cover & SWE estimation\n- **Soil Moisture Scale-Transfer Study** — satellite-based soil moisture retrieval, from his UF/IFAS TREC research visit\n- **mDeepLabV3+** — snow-cloud segmentation in Sentinel-2 imagery\n- **Climate Social Media Monitor** — NLP pipeline detecting floods/droughts from social media\n- **HydroImaging Workshop @ ICIP 2026** — co-organised workshop\n- **Smart Microscope** — award-winning disease-detection computer vision system\n- **Vision-Aided Assistive Robotics** — 6D pose estimation for assistive robotic arms\n\nSee the Projects section on this page for details on each.",
+    'How can I contact him?':
+      "You can reach Getnet by email at **getnet.demil@oulu.fi**, or find him on GitHub (github.com/getnetdemil), Google Scholar, ResearchGate, LinkedIn, and his University of Oulu profile — all linked from the top of this site."
+  };
+
   var history = []; // [{ role: 'user'|'model', text: '...' }]
   var open = false;
   var sending = false;
@@ -130,6 +145,16 @@
     if (!text || sending) return;
 
     suggestionsEl.innerHTML = '';
+
+    if (Object.prototype.hasOwnProperty.call(CANNED_ANSWERS, text)) {
+      var canned = CANNED_ANSWERS[text];
+      addMessage('user', text);
+      addMessage('bot', formatReply(canned), true);
+      history.push({ role: 'user', text: text });
+      history.push({ role: 'model', text: canned });
+      input.value = '';
+      return;
+    }
 
     if (!CHAT_API_URL) {
       addMessage('user', text);
