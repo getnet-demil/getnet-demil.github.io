@@ -1884,6 +1884,19 @@ button { cursor: pointer; font-family: var(--font-sans); }
 }
 .chatbot-chip:hover { border-color: var(--color-primary); color: var(--color-primary); }
 
+.chatbot-more-btn {
+  margin: -4px 0 0 2px;
+  padding: 2px 0;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: none;
+  border: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.chatbot-more-btn:hover { color: var(--color-primary-dark); }
+
 .chatbot-input-row {
   display: flex;
   align-items: center;

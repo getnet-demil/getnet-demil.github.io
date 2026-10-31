@@ -24,18 +24,35 @@
   ];
 
   // Instant, pre-written answers for the fixed suggestion chips above, so
-  // the most common questions don't wait on a round-trip to Gemini. Must be
-  // kept in sync with worker/src/index.js's SYSTEM_PROMPT if the underlying
-  // facts change. Free-form questions still go through the live API.
+  // the most common questions don't wait on a round-trip to Gemini. Each
+  // entry leads with a short answer and offers a "More detail" follow-up.
+  // Must be kept in sync with worker/src/index.js's SYSTEM_PROMPT if the
+  // underlying facts change. Free-form questions still go through the live
+  // API.
   var CANNED_ANSWERS = {
-    "What's Getnet's PhD research about?":
-      "Getnet's PhD research sits at the intersection of Geospatial AI, remote sensing, and computer vision at the University of Oulu, Finland. He builds deep learning and multimodal fusion frameworks that combine SAR, optical, multispectral, and reanalysis data to monitor the changing planet — mainly snow hydrology. Key work includes **CrossFuse** (a CNN-Transformer fusing Sentinel-1 SAR and Sentinel-2 optical imagery for snow cover and snow water equivalent estimation, published as \"XFuse\") and **mDeepLabV3+** (snow-cloud segmentation in Sentinel-2 imagery).",
-    'What has he published?':
-      "Getnet has 8 publications with 50+ citations, spanning journals, conferences, and preprints in AI, remote sensing, and hydrology:\n- **XFuse** — ISPRS Journal of Photogrammetry and Remote Sensing, 2026\n- **FiLM-GPNet** — IGARSS 2026\n- **HYDRO-DATASET** — ICIP 2026 Satellite Workshop (+ Zenodo dataset)\n- A systematic review on image-based snow estimation — Journal of Hydrology, 2025\n- **mDeepLabV3+** paper — Earth Science Informatics, 2025\n- A book chapter on AI-based early warning systems — 2025\n- A Nordic AI Climate Workshop paper — 2025\n- A SIGIR 2024 workshop paper on social media climate monitoring\n\nFull list with DOIs is in the Publications section on this page.",
-    'What projects has he built?':
-      "Getnet has built several projects across geospatial AI and beyond:\n- **CrossFuse** — CNN-Transformer fusion of Sentinel-1/2 for snow cover & SWE estimation\n- **Soil Moisture Scale-Transfer Study** — satellite-based soil moisture retrieval, from his UF/IFAS TREC research visit\n- **mDeepLabV3+** — snow-cloud segmentation in Sentinel-2 imagery\n- **Climate Social Media Monitor** — NLP pipeline detecting floods/droughts from social media\n- **HydroImaging Workshop @ ICIP 2026** — co-organised workshop\n- **Smart Microscope** — award-winning disease-detection computer vision system\n- **Vision-Aided Assistive Robotics** — 6D pose estimation for assistive robotic arms\n\nSee the Projects section on this page for details on each.",
-    'How can I contact him?':
-      "You can reach Getnet by email at **getnet.demil@oulu.fi**, or find him on GitHub (github.com/getnetdemil), Google Scholar, ResearchGate, LinkedIn, and his University of Oulu profile — all linked from the top of this site."
+    "What's Getnet's PhD research about?": {
+      short:
+        "Getnet's PhD is in Geospatial AI, remote sensing, and computer vision at the University of Oulu, Finland. He builds deep learning models that fuse satellite data (SAR, optical, multispectral) to monitor snow and water resources.",
+      detail:
+        "His flagship project, **CrossFuse**, is a CNN-Transformer architecture fusing Sentinel-1 SAR and Sentinel-2 optical imagery for high-resolution snow cover and snow water equivalent estimation. It's published as **XFuse** in the ISPRS Journal of Photogrammetry and Remote Sensing (2026). He also built **mDeepLabV3+**, a snow-cloud segmentation model published in Earth Science Informatics, and is co-organising the HydroImaging Workshop at IEEE ICIP 2026 in Tampere, Finland."
+    },
+    'What has he published?': {
+      short:
+        "Getnet has 8 peer-reviewed publications with 50+ citations in AI, remote sensing, and hydrology, including journal papers in ISPRS and the Journal of Hydrology.",
+      detail:
+        "• **XFuse**: multi-sensor CNN-Transformer fusion for snow cover mapping. ISPRS Journal of Photogrammetry and Remote Sensing, 2026\n• **FiLM-GPNet**: geometry-aware InSAR phase restoration. IGARSS 2026\n• **HYDRO-DATASET**: open-source multi-modal hydrology benchmark with a companion Zenodo dataset. ICIP 2026\n• A systematic review on image-based snow estimation. Journal of Hydrology, 2025\n• The original **mDeepLabV3+** paper. Earth Science Informatics, 2025\n• A book chapter on AI-based early warning systems, 2025\n• A Nordic AI Climate Workshop paper, 2025\n• A SIGIR 2024 workshop paper on social media climate monitoring\n\nFull details with DOIs are in the Publications section on this page."
+    },
+    'What projects has he built?': {
+      short:
+        "Getnet has built 7 major projects spanning satellite-based snow and soil moisture monitoring, climate NLP, assistive robotics, and medical diagnostics.",
+      detail:
+        "• **CrossFuse**: CNN-Transformer fusion of Sentinel-1 SAR and Sentinel-2 for snow cover and SWE estimation\n• **Soil Moisture Scale-Transfer Study**: satellite-based root-zone soil moisture retrieval, from his UF/IFAS TREC research visit\n• **mDeepLabV3+**: snow-cloud segmentation in Sentinel-2 imagery\n• **Climate Social Media Monitor**: real-time NLP pipeline detecting floods and droughts from social media\n• **HydroImaging Workshop @ ICIP 2026**: a workshop he's co-organising in Tampere, Finland\n• **Smart Microscope**: an award-winning computer-vision system for automated disease diagnosis\n• **Vision-Aided Assistive Robotics**: 6D pose estimation for robotic arms assisting people with upper-limb disabilities\n\nSee the Projects section on this page for the full picture."
+    },
+    'How can I contact him?': {
+      short: "You can reach Getnet directly by email at **getnet.demil@oulu.fi**.",
+      detail:
+        "He's also active on GitHub (github.com/getnetdemil), Google Scholar, ResearchGate, LinkedIn, and his University of Oulu profile, all linked at the top of this site."
+    }
   };
 
   var history = []; // [{ role: 'user'|'model', text: '...' }]
@@ -78,6 +95,24 @@
       bubble.textContent = text;
     }
     row.appendChild(bubble);
+    messagesEl.appendChild(row);
+    scrollToBottom();
+    return row;
+  }
+
+  function addMoreDetailButton(detailText) {
+    var row = document.createElement('div');
+    row.className = 'chatbot-msg chatbot-msg--bot';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'chatbot-more-btn';
+    btn.textContent = 'More detail';
+    btn.addEventListener('click', function () {
+      row.remove();
+      addMessage('bot', formatReply(detailText), true);
+      history.push({ role: 'model', text: detailText });
+    });
+    row.appendChild(btn);
     messagesEl.appendChild(row);
     scrollToBottom();
     return row;
@@ -147,9 +182,10 @@
     if (Object.prototype.hasOwnProperty.call(CANNED_ANSWERS, text)) {
       var canned = CANNED_ANSWERS[text];
       addMessage('user', text);
-      addMessage('bot', formatReply(canned), true);
+      addMessage('bot', formatReply(canned.short), true);
       history.push({ role: 'user', text: text });
-      history.push({ role: 'model', text: canned });
+      history.push({ role: 'model', text: canned.short });
+      addMoreDetailButton(canned.detail);
       input.value = '';
       return;
     }
@@ -158,7 +194,7 @@
       addMessage('user', text);
       addMessage(
         'bot',
-        "The chat backend isn't connected yet — this widget is waiting on its Cloudflare Worker URL. In the meantime, feel free to reach Getnet directly by email."
+        "The chat backend isn't connected yet. This widget is waiting on its Cloudflare Worker URL. In the meantime, feel free to reach Getnet directly by email."
       );
       input.value = '';
       return;
