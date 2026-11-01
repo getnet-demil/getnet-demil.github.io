@@ -817,7 +817,43 @@
           <div class="pj-head">
             <span class="pj-status pj-status--active">Active</span>
             <h3 class="pj-title">CrossFuse</h3>
-            <img class="pj-figure" src="images/publications/xfuse-architecture.png" alt="CrossFuse / XFuse architecture: multi-sensor SAR and optical feature extraction, fusion module, and snow cover prediction pipeline" loading="lazy" />
+            <svg class="pj-figure" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of CrossFuse combining SAR and optical satellite imagery into a fused snow cover map">
+              <defs>
+                <linearGradient id="pj-cf-sar" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#160a00" stop-opacity="0.95"/>
+                  <stop offset="40%" stop-color="#7a3a10" stop-opacity="0.85"/>
+                  <stop offset="75%" stop-color="#1f8a85" stop-opacity="0.75"/>
+                  <stop offset="100%" stop-color="#7fc9c0" stop-opacity="0.55"/>
+                </linearGradient>
+                <linearGradient id="pj-cf-snow" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#daf0f8" stop-opacity="0.9"/>
+                  <stop offset="45%" stop-color="#8ecfe4" stop-opacity="0.8"/>
+                  <stop offset="100%" stop-color="#3a8fac" stop-opacity="0.65"/>
+                </linearGradient>
+              </defs>
+              <rect width="400" height="200" rx="8" fill="rgba(12,12,16,0.96)" stroke="rgba(31,138,133,0.18)" stroke-width="1"/>
+              <rect x="18" y="18" width="108" height="76" rx="6" fill="url(#pj-cf-sar)"/>
+              <circle cx="40" cy="42" r="3" fill="rgba(31,138,133,0.85)"/>
+              <circle cx="66" cy="58" r="2.4" fill="rgba(127,201,192,0.8)"/>
+              <circle cx="92" cy="38" r="2.8" fill="rgba(31,138,133,0.7)"/>
+              <circle cx="50" cy="74" r="2.2" fill="rgba(127,201,192,0.65)"/>
+              <circle cx="104" cy="66" r="2" fill="rgba(31,138,133,0.6)"/>
+              <text x="72" y="107" font-family="'JetBrains Mono', monospace" font-size="8" fill="rgba(255,255,255,0.45)" text-anchor="middle" letter-spacing="0.08em">SENTINEL-1 SAR</text>
+              <rect x="18" y="118" width="108" height="64" rx="6" fill="url(#pj-cf-snow)"/>
+              <rect x="26" y="126" width="38" height="24" rx="2" fill="rgba(255,255,255,0.22)"/>
+              <rect x="70" y="130" width="46" height="20" rx="2" fill="rgba(255,255,255,0.16)"/>
+              <rect x="26" y="156" width="90" height="16" rx="2" fill="rgba(96,165,250,0.22)"/>
+              <line x1="126" y1="56" x2="168" y2="100" stroke="rgba(139,92,246,0.4)" stroke-width="1.5"/>
+              <line x1="126" y1="150" x2="168" y2="100" stroke="rgba(139,92,246,0.4)" stroke-width="1.5"/>
+              <circle cx="178" cy="100" r="22" fill="rgba(139,92,246,0.16)" stroke="rgba(139,92,246,0.5)" stroke-width="1.5"/>
+              <text x="178" y="104" font-family="'JetBrains Mono', monospace" font-size="9" fill="rgba(196,181,253,0.95)" text-anchor="middle" font-weight="700">FUSE</text>
+              <line x1="200" y1="100" x2="230" y2="100" stroke="rgba(139,92,246,0.4)" stroke-width="1.5"/>
+              <rect x="232" y="18" width="150" height="164" rx="6" fill="url(#pj-cf-snow)"/>
+              <path d="M248 140 Q 280 100 310 120 T 366 90" fill="none" stroke="rgba(31,138,133,0.85)" stroke-width="2" stroke-dasharray="5 3"/>
+              <rect x="246" y="156" width="92" height="14" rx="3" fill="rgba(31,138,133,0.85)"/>
+              <text x="292" y="166" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="#0c1413" text-anchor="middle" font-weight="700">SNOW COVER</text>
+              <text x="307" y="34" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="rgba(31,138,133,0.9)" text-anchor="middle" letter-spacing="0.06em">OUTPUT</text>
+            </svg>
           </div>
           <div class="pj-body">
             <p class="pj-desc">Hybrid CNN-Transformer architecture fusing Sentinel-1 SAR and Sentinel-2 optical imagery for high-resolution snow cover and snow water equivalent estimation. Integrates spectral band optimisation, cross-modal attention, and transfer learning for high-latitude, snow-dominated landscapes.</p>
@@ -854,7 +890,43 @@
           <div class="pj-head">
             <span class="pj-status pj-status--published">Published</span>
             <h3 class="pj-title">mDeepLabV3+</h3>
-            <img class="pj-figure" src="images/publications/mdeeplab-architecture.png" alt="mDeepLabV3+ architecture: DCNN encoder with atrous spatial pyramid pooling and decoder for snow-cloud segmentation" loading="lazy" />
+            <svg class="pj-figure" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of mDeepLabV3+ segmenting a satellite image into snow, cloud, and land classes">
+              <defs>
+                <linearGradient id="pj-md-in" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#daf0f8" stop-opacity="0.85"/>
+                  <stop offset="45%" stop-color="#8ecfe4" stop-opacity="0.7"/>
+                  <stop offset="100%" stop-color="#3a8fac" stop-opacity="0.55"/>
+                </linearGradient>
+              </defs>
+              <rect width="400" height="200" rx="8" fill="rgba(12,12,16,0.96)" stroke="rgba(31,138,133,0.18)" stroke-width="1"/>
+              <rect x="18" y="18" width="160" height="164" rx="6" fill="url(#pj-md-in)"/>
+              <rect x="28" y="28" width="60" height="42" rx="3" fill="rgba(255,255,255,0.2)"/>
+              <rect x="96" y="34" width="50" height="34" rx="3" fill="rgba(255,255,255,0.14)"/>
+              <rect x="30" y="80" width="80" height="38" rx="3" fill="rgba(140,140,150,0.35)"/>
+              <rect x="34" y="128" width="120" height="40" rx="3" fill="rgba(34,197,94,0.28)"/>
+              <text x="98" y="190" font-family="'JetBrains Mono', monospace" font-size="8" fill="rgba(255,255,255,0.45)" text-anchor="middle" letter-spacing="0.06em">SENTINEL-2 INPUT</text>
+              <circle cx="200" cy="70" r="7" fill="rgba(139,92,246,0.8)"/>
+              <circle cx="200" cy="100" r="7" fill="rgba(139,92,246,0.65)"/>
+              <circle cx="200" cy="130" r="7" fill="rgba(139,92,246,0.5)"/>
+              <line x1="178" y1="100" x2="193" y2="70" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+              <line x1="178" y1="100" x2="193" y2="100" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+              <line x1="178" y1="100" x2="193" y2="130" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+              <line x1="207" y1="70" x2="222" y2="100" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+              <line x1="207" y1="100" x2="222" y2="100" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+              <line x1="207" y1="130" x2="222" y2="100" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+              <text x="200" y="152" font-family="'JetBrains Mono', monospace" font-size="7" fill="rgba(196,181,253,0.8)" text-anchor="middle" letter-spacing="0.06em">CNN</text>
+              <rect x="226" y="18" width="156" height="140" rx="6" fill="rgba(10,14,16,0.9)"/>
+              <rect x="236" y="28" width="60" height="42" rx="3" fill="#bfe4f2"/>
+              <rect x="302" y="34" width="50" height="34" rx="3" fill="#d8dadf"/>
+              <rect x="238" y="80" width="80" height="38" rx="3" fill="#9aa0a6"/>
+              <rect x="242" y="128" width="120" height="24" rx="3" fill="#4ade80"/>
+              <rect x="236" y="166" width="9" height="9" rx="2" fill="#bfe4f2"/>
+              <text x="249" y="174" font-family="'JetBrains Mono', monospace" font-size="7" fill="rgba(255,255,255,0.6)">Snow</text>
+              <rect x="286" y="166" width="9" height="9" rx="2" fill="#9aa0a6"/>
+              <text x="299" y="174" font-family="'JetBrains Mono', monospace" font-size="7" fill="rgba(255,255,255,0.6)">Cloud</text>
+              <rect x="336" y="166" width="9" height="9" rx="2" fill="#4ade80"/>
+              <text x="349" y="174" font-family="'JetBrains Mono', monospace" font-size="7" fill="rgba(255,255,255,0.6)">Land</text>
+            </svg>
           </div>
           <div class="pj-body">
             <p class="pj-desc">Modified DeepLabV3+ with a ResNet-50/101 backbone for snow-cloud segmentation in Sentinel-2 multispectral imagery. Introduces dilated convolutions and domain-adapted training to reliably separate snow from cloud cover, a persistent challenge in remote sensing.</p>
