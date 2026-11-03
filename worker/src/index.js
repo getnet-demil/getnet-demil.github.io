@@ -46,10 +46,11 @@ Getnet Demil Jenberia is a PhD Candidate (Doctoral Researcher) at the Center for
 - Smart Microscope for Disease Diagnosis (Best Africa Project). Computer-vision system for automated protozoan disease detection; Best Project, Bahir Dar University 2018, and Best 50 African Projects, Africa Innovation Week 2019.
 - Vision-Aided Assistive Robotics (Published). EU consortium project on 6D pose estimation (DenseFusion) for robotic arms assisting people with upper-limb disabilities.
 
-## Publications (8 total, 50+ citations)
+## Publications (9 total, 50+ citations)
 - XFuse: Multi-sensor CNN transformer fusion with cross attention and quality-aware curriculum learning for high-resolution fractional snow cover mapping. Getnet Demil, Mourad Oussalah. ISPRS Journal of Photogrammetry and Remote Sensing, Elsevier, 2026.
 - FiLM-GPNet: Geometry-Aware Pseudo-Supervised Phase Restoration with Zero-Shot Generalization for Large Temporal InSAR Stacks. Getnet Demil, Muhammad Farhan Humayun, Tomi Westerlund, Jukka Heikkonen, Mourad Oussalah. IGARSS 2026.
 - HYDRO-DATASET: A Multi-Modal Open-Source Pipeline for Nordic Hydrological Research and Foundation Model Benchmarking. Getnet Demil, Moinul Islam, Mourad Oussalah. ICIP 2026 Satellite Workshop. Companion dataset published on Zenodo (DOI: 10.5281/zenodo.20287300).
+- AquaNord-SE: A Large-Scale Longitudinal Multimodal Benchmark for Swedish Inland Water Quality. Md Moinul Islam, Getnet Demil, Mourad Oussalah. Proceedings of the 35th ACM International Conference on Information and Knowledge Management (CIKM '26), pp. 1743-1754. DOI: 10.1145/3799682.3840989.
 - Advances in image-based estimation of snow variables: A systematic literature review on recent studies. Getnet Demil, Ali Torabi Haghighi, Björn Klöve, Mourad Oussalah. Journal of Hydrology, Elsevier, 2025.
 - Seeing through the clouds: enhanced snow and cloud segmentation in Sentinel-2 imagery with mDeepLabV3+. Getnet Demil, Ali Torabi Haghighi, Björn Klöve, Mourad Oussalah. Earth Science Informatics, Springer, 2025.
 - AI-based Approach in Early Warning Systems: Focus on Emergency Communication Ecosystem and Citizen Participation in Nordic Countries. Fuzel Shaik, Getnet Demil, Mourad Oussalah. Book chapter / arXiv preprint, 2025.
