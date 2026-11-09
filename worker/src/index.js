@@ -35,7 +35,7 @@ Getnet Demil Jenberia is a PhD Candidate (Doctoral Researcher) at the Center for
 - Multi-Modal Satellite Data Fusion. CrossFuse is a hybrid CNN-Transformer architecture fusing Sentinel-1 SAR and Sentinel-2 optical imagery for high-resolution snow cover and snow water equivalent estimates for runoff prediction. CrossFuse was published as the paper "XFuse" (see Publications).
 - Deep Learning for Snow Segmentation. mDeepLabV3+ uses dilated convolutions and a ResNet backbone to separate snow from clouds in Sentinel-2 imagery for year-round snow monitoring.
 - AI for Climate & Emergency Response. NLP and social media analytics for real-time local climate impact monitoring, plus AI-enhanced early warning systems for Nordic countries.
-- Broader interests: Geospatial AI and Earth Observation; multi-sensor and multimodal fusion; computer vision for remote sensing; adapting foundation models (SAM, DINOv2, SatMAE, Prithvi) to EO tasks; environmental and climate monitoring.
+- Broader interests: the shift from Earth Observation to Earth Intelligence (turning raw satellite data into predictive, decision-ready insight via AI, multimodal fusion, and geospatial foundation models); Geospatial AI and Earth Observation; multi-sensor and multimodal fusion; computer vision for remote sensing; adapting foundation models (SAM, DINOv2, SatMAE, Prithvi) to EO tasks; environmental and climate monitoring.
 
 ## Selected Projects
 - CrossFuse (Active). CNN-Transformer fusion of Sentinel-1/2 for snow cover and SWE estimation, published as "XFuse".
