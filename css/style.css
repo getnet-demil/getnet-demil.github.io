@@ -1332,7 +1332,9 @@ button { cursor: pointer; font-family: var(--font-sans); }
 }
 .publications-list .publication-card:first-child { border-top: none; padding-top: 0; }
 
+#publications { counter-reset: pub-counter; }
 .publication-card {
+  counter-increment: pub-counter;
   padding: 22px 0;
   border-top: 1px solid var(--color-border);
   transition: background var(--transition);
@@ -1345,6 +1347,15 @@ button { cursor: pointer; font-family: var(--font-sans); }
   flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 10px;
+}
+.pub-meta-row::before {
+  content: counter(pub-counter) ".";
+  order: -1;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 0.04em;
 }
 
 .pub-badge {
